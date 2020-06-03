@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Corcel\Model\Post as Corcel;
+use Corcel\Model\Post as CorcelPost;
 
-class Post extends Corcel {
+class Post extends CorcelPost {
 
     protected $connection = 'wordpress';
 }
