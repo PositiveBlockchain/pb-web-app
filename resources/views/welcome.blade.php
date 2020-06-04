@@ -1,99 +1,65 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <title>{{ config('app.name', 'PositiveBlockchain') }}</title>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- Styles -->
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen antialiased leading-none">
+<div class="flex flex-col">
+    @if(Route::has('login'))
+        <div class="absolute top-0 right-0 mt-4 mr-4">
+            @auth
+                <a href="{{ url('/home') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Home') }}</a>
+            @else
+                <a href="{{ route('login') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase pr-6">{{ __('Login') }}</a>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Register') }}</a>
+                @endif
+            @endauth
+        </div>
+    @endif
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    PositiveBlockchain API & Web App
-                </div>
-
-                <div class="links">
-                    <a href="https://positiveblockchain.io">PositiveBlockchain.io</a>
-                    <a href="https://github.com/PositiveBlockchain/pb-web-app">Github</a>
-                    <a href="https://positiveblockchain.io/about">About PB</a>
-                    <a href="https://twitter.com/PositiveBlock">Twitter</a>
-                    <a href="https://www.youtube.com/channel/UCfUUntxXsz0k1N1oCb7w1ZA">YouTube</a>
-                    <a href="https://www.linkedin.com/company/positiveblockchain-io/">LinkedIn</a>
-                    <a href="https://chainist.de">Hosted and Co-Developed by Chainist.de</a>
-                </div>
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="flex flex-col justify-around h-full">
+            <div>
+                <h1 class="text-gray-600 text-center font-light tracking-wider text-5xl mb-6">
+                    {{ config('app.name', 'PositiveBlockchain') }} API & Web App
+                </h1>
+                <ul class="list-reset">
+                    <li class="inline pr-8">
+                        <a href="https://positiveblockchain.io" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Documentation">PositiveBlockchain.io</a>
+                    </li>
+                    <li class="inline pr-8">
+                        <a href="https://github.com/PositiveBlockchain/pb-web-app" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Laracasts">Github</a>
+                    </li>
+                    <li class="inline pr-8">
+                        <a href="https://positiveblockchain.io/about" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="News">About PB</a>
+                    </li>
+                    <li class="inline pr-8">
+                        <a href="https://twitter.com/PositiveBlock" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Nova">Twitter</a>
+                    </li>
+                    <li class="inline pr-8">
+                        <a href="https://www.youtube.com/channel/UCfUUntxXsz0k1N1oCb7w1ZA" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Forge">YouTube</a>
+                    </li>
+                    <li class="inline pr-8">
+                        <a href="https://www.linkedin.com/company/positiveblockchain-io" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Vapor">LinkedIn</a>
+                    </li>
+                    <li class="inline pr-8">
+                        <a href="https://chainist.de/" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="GitHub">Hosted and co-developed by chainist.de</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>
