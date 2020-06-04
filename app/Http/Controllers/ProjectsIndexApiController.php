@@ -25,7 +25,14 @@ class ProjectsIndexApiController extends Controller {
                 $listingMetaValues = $project->meta->filter(function ($value, $key) {
                     return $value->meta_key === 'lp_listingpro_options_fields';
                 });
-                $project->fields = MetaFieldRenamer::arrayKeyFromKebapToSnake(Arr::first($listingMetaValues)['value']);
+                if (is_null(Arr::first($listingMetaValues)))
+                {
+                    $project->fields = [];
+                }
+                else
+                {
+                    $project->fields = MetaFieldRenamer::arrayKeyFromKebapToSnake(Arr::first($listingMetaValues)['value']);
+                }
 
                 //remove all default meta data
                 unset($project->meta);
@@ -34,6 +41,6 @@ class ProjectsIndexApiController extends Controller {
             }
         });
 
-        return response()->json($filteredPosts, Response::HTTP_OK);
+        return response()->json(['status' => 'ok', 'code' => Response::HTTP_OK, 'data' => $filteredPosts, 'endpoint' => route('api.projects')], Response::HTTP_OK);
     }
 }

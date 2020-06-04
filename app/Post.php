@@ -11,6 +11,7 @@ class Post extends CorcelPost {
     protected $hidden = [
         'type',
         'taxonomies',
+        'slug',
         'terms',
         'guid',
         'comment_count',
