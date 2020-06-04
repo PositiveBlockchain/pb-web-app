@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\MetaFieldRenamer;
 use App\Helpers\MetaFields;
 use App\Post;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
 
 class ProjectsShowApiController extends Controller {
 
