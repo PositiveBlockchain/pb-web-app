@@ -11,5 +11,8 @@ Positiveblockchain.io (PB) is an open-source database. The database includes blo
  You can see the work in progress on https://pb.chainist.de. The site is a development server, thus probably in constant change. Things might break or not available. A production server will be available as soon it is ready.
  
  ## Technical Architecture
- We are using Laravel (https://laravel.com/), the rapid development framework for PHP. The first version will use the Corcel depenency (https://github.com/corcel/corcel) to access the Wordpress database. The solution will filter the necessary data and returns only required data for the REST API.
+ We are using Laravel (https://laravel.com/), the rapid development framework for PHP. The first version will use the Corcel depenency (https://github.com/corcel/corcel) to access the Wordpress database. The solution will filter the necessary data and returns only required data for the REST API. The architecture will evolve over time.
+ 
+ ## API Documentation
+ Plan is to generate a swagger documentation for according to the Open API specification. This way you will be able to generate PB client APIs for your programming language. What's this? See https://github.com/swagger-api/swagger-codegen for more details.
   
