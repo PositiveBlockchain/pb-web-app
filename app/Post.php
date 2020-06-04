@@ -51,14 +51,14 @@ class Post extends CorcelPost {
         parent::__construct();
         // append via the constructor and not via class protected property $appends
         // otherwise all appends from parent are lost
-        array_push($this->appends, 'perma_link');
+        array_push($this->appends, 'permalink');
     }
 
     /**
      * @return mixed|null
      */
-    public function getPermaLinkAttribute()
+    public function getPermalinkAttribute()
     {
-        return Option::get('siteurl') . '/database/' . $this->slug;
+        return Option::get('siteurl') . '/database/' . $this->slug . '/';
     }
 }
