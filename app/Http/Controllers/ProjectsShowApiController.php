@@ -33,6 +33,7 @@ class ProjectsShowApiController extends Controller {
             return response()->json([
                 'status' => 'error',
                 'code' => Response::HTTP_NOT_FOUND,
+                'message' => $exception->getMessage(),
                 'data' => ['id' => $id],
                 'endpoint' => route('api.projects.show', $id),
             ]);
