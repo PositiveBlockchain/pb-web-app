@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MetaFieldRenamer;
 use App\Post;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 
 class ProjectsIndexApiController extends Controller {
 
@@ -17,12 +18,15 @@ class ProjectsIndexApiController extends Controller {
                 $listingMetaValues = $project->meta->filter(function ($value, $key) {
                     return $value->meta_key === 'lp_listingpro_options_fields';
                 });
-                $project->meta = $listingMetaValues;
+                $project->fields = MetaFieldRenamer::arrayKeyFromKebapToSnake(Arr::first($listingMetaValues)['value']);
+
+                //remove all default meta data
+                unset($project->meta);
 
                 return $project;
             }
         });
 
-            return response()->json($filteredPosts, Response::HTTP_OK);
+        return response()->json($filteredPosts, Response::HTTP_OK);
     }
 }
