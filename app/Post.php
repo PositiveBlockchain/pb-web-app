@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Corcel\Model\Option;
 use Corcel\Model\Post as CorcelPost;
 
 class Post extends CorcelPost {
@@ -11,6 +12,7 @@ class Post extends CorcelPost {
     protected $hidden = [
         'type',
         'taxonomies',
+        'url',
         'slug',
         'terms',
         'guid',
@@ -43,4 +45,20 @@ class Post extends CorcelPost {
         'excerpt',
         'keywords_str',
     ];
+
+    public function __construct()
+    {
+        parent::__construct();
+        // append via the constructor and not via class protected property $appends
+        // otherwise all appends from parent are lost
+        array_push($this->appends, 'perma_link');
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getPermaLinkAttribute()
+    {
+        return Option::get('siteurl') . '/database/' . $this->slug;
+    }
 }
