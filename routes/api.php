@@ -19,5 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::get('projects', 'ProjectsIndexApiController')->name('api.projects.index');
-    Route::get('projects/{id}', 'ProjectShowApiController')->name('api.projects.show');
+    Route::get('projects/{id}', 'ProjectsShowApiController')->name('api.projects.show');
 });

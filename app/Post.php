@@ -61,4 +61,5 @@ class Post extends CorcelPost {
     {
         return Option::get('siteurl') . '/database/' . $this->slug . '/';
     }
+
 }

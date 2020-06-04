@@ -40,41 +40,19 @@ class ProjectsIndexApiController extends Controller {
      */
     private function filteredPosts($posts, string $filter)
     {
-        return $posts->map(function ($project) use ($filter) {
-            if ($project->meta->count() > 0)
+        return $posts->map(function ($post) use ($filter) {
+            if ($post->meta->count() > 0)
             {
-                $listingMetaValues = $project->meta->filter(function ($value) use ($filter) {
-                    return $value->meta_key === $filter;
-                });
+                $listingMetaValues = MetaFields::filterListingMetaFields($post, $filter);
 
-                $project = $this->appendAttributes($listingMetaValues, $project);
+                $post = MetaFields::appendMetaFields($listingMetaValues, $post);
 
                 //remove all default meta data
-                unset($project->meta);
+                unset($post->meta);
 
-                return $project;
+                return $post;
             }
         });
     }
 
-    /**
-     * @param $listingMetaValues
-     * @param Post $project
-     * @return Post
-     */
-    private function appendAttributes($listingMetaValues, Post $project): Post
-    {
-        if (is_null(Arr::first($listingMetaValues)))
-        {
-            $project->fields = [];
-        }
-        else
-        {
-            $project->fields = MetaFieldRenamer::arrayKeyFromKebapToSnake(Arr::first($listingMetaValues)['value']);
-        }
-
-        $project->link = route('api.projects.show', $project->ID);
-
-        return $project;
-    }
 }
