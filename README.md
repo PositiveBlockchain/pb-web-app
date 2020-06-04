@@ -16,3 +16,10 @@ Positiveblockchain.io (PB) is an open-source database. The database includes blo
  ## API Documentation
  Plan is to generate a swagger documentation for according to the Open API specification. This way you will be able to generate PB client APIs for your programming language. What's this? See https://github.com/swagger-api/swagger-codegen for more details.
   
+  ## Contributors
+  Nhan Vu,\
+  https://github.com/jobnomade \
+  https://nhanvu.de/
+ 
+ More contributors to come…
+  
