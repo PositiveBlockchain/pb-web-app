@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Helpers\MetaFieldRenamer;
 use App\Post;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 
 class ProjectsIndexApiController extends Controller {
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $posts = Post::type('listing')->published()->limit(10)->get();
+        $limit = 10; // default limit
+        if ($request->has('limit'))
+        {
+            $limit = $request->get('limit');
+        }
+        $posts = Post::type('listing')->published()->limit($limit)->get();
+
         $filteredPosts = $posts->map(function ($project) {
             if ($project->meta->count() > 0)
             {
