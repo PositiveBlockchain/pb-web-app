@@ -15,6 +15,20 @@
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none">
 <div class="flex flex-col">
+    <nav class="bg-blue-900 shadow mb-8 py-6">
+        <div class="container mx-auto px-6 md:px-0">
+            <div class="flex items-center justify-center">
+                <div class="mr-6">
+                    <a href="http://positiveblockchain.local" class="text-lg font-semibold text-gray-100 no-underline">
+                        PB Dashboard
+                    </a>
+                </div>
+                <div class="flex-1 text-right">
+                    <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="#">Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
       <div class="min-h-screen flex items-center justify-center">
         <div class="flex flex-col justify-around h-full">
             <div>
