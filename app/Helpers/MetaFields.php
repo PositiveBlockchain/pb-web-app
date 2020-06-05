@@ -40,7 +40,7 @@ class MetaFields {
             $post->fields = MetaFieldRenamer::arrayKeyFromKebapToSnake($fieldValues['value']);
         }
 
-        $post->resource_link = route('api.projects.show', $post->ID);
+        $post->links = ['self' => route('api.projects.show', $post->ID)];
 
         return $post;
     }

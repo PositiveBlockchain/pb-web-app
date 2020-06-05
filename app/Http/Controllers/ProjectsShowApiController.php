@@ -25,7 +25,7 @@ class ProjectsShowApiController extends Controller {
                 'status' => 'ok',
                 'code' => Response::HTTP_OK,
                 'data' => $post,
-                'endpoint' => route('api.projects.show', $id),
+                'links' => ['self' => route('api.projects.show', $id)],
             ]);
         }
         catch (ModelNotFoundException $exception)
@@ -35,7 +35,7 @@ class ProjectsShowApiController extends Controller {
                 'code' => Response::HTTP_NOT_FOUND,
                 'message' => $exception->getMessage(),
                 'data' => ['id' => $id],
-                'endpoint' => route('api.projects.show', $id),
+                'links' => ['self' => route('api.projects.show', $id)],
             ]);
         }
     }

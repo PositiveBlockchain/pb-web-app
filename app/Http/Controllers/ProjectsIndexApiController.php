@@ -28,7 +28,7 @@ class ProjectsIndexApiController extends Controller {
             'status' => 'ok',
             'code' => Response::HTTP_OK,
             'data' => $this->filteredPosts($posts, MetaFields::LP_OPTIONS_FIELD),
-            'endpoint' => route('api.projects.index'),
+            'link' => ['self' => route('api.projects.index')],
         ], Response::HTTP_OK
         );
     }
