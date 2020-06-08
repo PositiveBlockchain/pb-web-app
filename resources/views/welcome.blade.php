@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none">
 <div class="flex flex-col">
@@ -29,35 +31,53 @@
             </div>
         </div>
     </nav>
-      <div class="min-h-screen flex items-center justify-center">
+    <div class="min-h-screen flex items-center justify-center">
         <div class="flex flex-col justify-around h-full">
-            <div>
+            <div id="app">
                 <h1 class="text-gray-600 text-center font-light tracking-wider text-5xl mb-6">
                     {{ config('app.name', 'PositiveBlockchain') }} API & Web App
                 </h1>
-                <ul class="list-reset">
-                    <li class="inline pr-8">
-                        <a href="https://positiveblockchain.io" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Documentation">PositiveBlockchain.io</a>
-                    </li>
-                    <li class="inline pr-8">
-                        <a href="https://github.com/PositiveBlockchain/pb-web-app" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Laracasts">Github</a>
-                    </li>
-                    <li class="inline pr-8">
-                        <a href="https://positiveblockchain.io/about" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="News">About PB</a>
-                    </li>
-                    <li class="inline pr-8">
-                        <a href="https://twitter.com/PositiveBlock" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Nova">Twitter</a>
-                    </li>
-                    <li class="inline pr-8">
-                        <a href="https://www.youtube.com/channel/UCfUUntxXsz0k1N1oCb7w1ZA" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Forge">YouTube</a>
-                    </li>
-                    <li class="inline pr-8">
-                        <a href="https://www.linkedin.com/company/positiveblockchain-io" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="Vapor">LinkedIn</a>
-                    </li>
-                    <li class="inline pr-8">
-                        <a href="https://chainist.de/" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase" title="GitHub">Hosted and co-developed by chainist.de</a>
-                    </li>
-                </ul>
+                <App></App>
+                <footer class="mt-5">
+                    <ul class="list-reset">
+                        <li class="inline pr-8">
+                            <a href="https://positiveblockchain.io"
+                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
+                               title="Documentation">PositiveBlockchain.io</a>
+                        </li>
+                        <li class="inline pr-8">
+                            <a href="https://github.com/PositiveBlockchain/pb-web-app"
+                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
+                               title="Laracasts">Github</a>
+                        </li>
+                        <li class="inline pr-8">
+                            <a href="https://positiveblockchain.io/about"
+                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
+                               title="News">About PB</a>
+                        </li>
+                        <li class="inline pr-8">
+                            <a href="https://twitter.com/PositiveBlock"
+                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
+                               title="Nova">Twitter</a>
+                        </li>
+                        <li class="inline pr-8">
+                            <a href="https://www.youtube.com/channel/UCfUUntxXsz0k1N1oCb7w1ZA"
+                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
+                               title="Forge">YouTube</a>
+                        </li>
+                        <li class="inline pr-8">
+                            <a href="https://www.linkedin.com/company/positiveblockchain-io"
+                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
+                               title="Vapor">LinkedIn</a>
+                        </li>
+                        <li class="inline pr-8">
+                            <a href="https://chainist.de/"
+                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
+                               title="GitHub">Hosted and co-developed by chainist.de</a>
+                        </li>
+                    </ul>
+                </footer>
+
             </div>
         </div>
     </div>
