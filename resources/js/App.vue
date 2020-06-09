@@ -1,15 +1,15 @@
 <template>
     <div id="dashboard">
-        <projects-by-category-bar-chart-component :taxonomy-count-filter-property="10" />
+        <projects-by-category-pie-chart-component :taxonomy-count-filter-property="10" />
     </div>
 </template>
 
 <script>
-    import ProjectsByCategoryBarChartComponent from "./components/ProjectsByCategoryBarChartComponent";
+    import ProjectsByCategoryPieChartComponent from "./components/ProjectsByCategoryPieChartComponent";
 
     export default {
         name: "App",
-        components: {ProjectsByCategoryBarChartComponent},
+        components: {ProjectsByCategoryPieChartComponent},
         data() {
             return {
 

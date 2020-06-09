@@ -1850,7 +1850,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_ProjectsByCategoryBarChartComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ProjectsByCategoryBarChartComponent */ "./resources/js/components/ProjectsByCategoryBarChartComponent.vue");
+/* harmony import */ var _components_ProjectsByCategoryPieChartComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ProjectsByCategoryPieChartComponent */ "./resources/js/components/ProjectsByCategoryPieChartComponent.vue");
 //
 //
 //
@@ -1861,7 +1861,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   components: {
-    ProjectsByCategoryBarChartComponent: _components_ProjectsByCategoryBarChartComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+    ProjectsByCategoryPieChartComponent: _components_ProjectsByCategoryPieChartComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {};
@@ -1873,9 +1873,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1913,10 +1913,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ProjectsByCategoryBarChartComponent",
+  name: "ProjectsByCategoryPieChartComponent",
   components: {
     PieChart: _charts_PieChart__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -1932,13 +1957,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loaded: false,
       chartdata: null,
       taxonomies: null,
-      currentCountFilter: null,
+      currentCountFilter: 1,
+      currentTopFilter: 0,
       options: {
         responsive: true,
         cutoutPercentage: 50,
         borderWidth: 0,
         tooltips: {
-          enabled: true
+          enabled: true,
+          callbacks: {
+            label: function label(tooltipItem, data) {
+              var percentage = data['datasets'][0]['data'][tooltipItem['index']] * 100 / _.sum(data['datasets'][0]['data']);
+
+              return data['labels'][tooltipItem['index']] + ': ' + _.round(percentage, 2) + '%';
+            }
+          }
         }
       }
     };
@@ -1947,9 +1980,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     filteredTaxonomies: function filteredTaxonomies() {
       var _this = this;
 
-      var filtered = _.filter(this.taxonomies, function (taxonomy) {
-        return taxonomy.count > _this.currentCountFilter;
-      });
+      var filtered = [];
+
+      if (this.currentTopFilter === 0) {
+        filtered = _.filter(this.taxonomies, function (taxonomy) {
+          return taxonomy.count > _this.currentCountFilter;
+        });
+      } else if (this.currentTopFilter > 0) {
+        filtered = _.slice(this.taxonomies, 0, this.currentTopFilter);
+      }
 
       var values = _.orderBy(_.map(filtered, 'count'));
 
@@ -57924,7 +57963,7 @@ var render = function() {
     "div",
     { attrs: { id: "dashboard" } },
     [
-      _c("projects-by-category-bar-chart-component", {
+      _c("projects-by-category-pie-chart-component", {
         attrs: { "taxonomy-count-filter-property": 10 }
       })
     ],
@@ -57938,9 +57977,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=template&id=1e6b4948&scoped=true&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=template&id=cb9f1afe&scoped=true&":
 /*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=template&id=1e6b4948&scoped=true& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=template&id=cb9f1afe&scoped=true& ***!
   \**************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -57958,89 +57997,206 @@ var render = function() {
     { attrs: { id: "chart_project_categories" } },
     [
       _c(
-        "label",
-        {
-          staticClass:
-            "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-          attrs: { for: "category-count-filter" }
-        },
-        [_vm._v("\n        Category filter\n    ")]
+        "div",
+        { staticClass: "flex flex-wrap -mx-3 mb-2", attrs: { id: "filters" } },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "w-full md:w-1/3 px-3 mb-6 md:mb-0",
+              attrs: { id: "filter_category_by_count" }
+            },
+            [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                  attrs: { for: "category-count-filter" }
+                },
+                [_vm._v("\n                Category filter\n            ")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "relative" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.currentCountFilter,
+                        expression: "currentCountFilter"
+                      }
+                    ],
+                    staticClass:
+                      "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
+                    attrs: { id: "category-count-filter" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.currentCountFilter = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { selected: "" }, domProps: { value: 1 } },
+                      [_vm._v(" Category with > 1 Project")]
+                    ),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 5 } }, [
+                      _vm._v(" Category with > 5 Projects")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 10 } }, [
+                      _vm._v(" Category with > 10 Projects")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "w-full md:w-1/3 px-3 mb-6 md:mb-0",
+              attrs: { id: "filter_top_categories" }
+            },
+            [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                  attrs: { for: "top-category-filter" }
+                },
+                [_vm._v("\n                Top Categories\n            ")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "relative" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.currentTopFilter,
+                        expression: "currentTopFilter"
+                      }
+                    ],
+                    staticClass:
+                      "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
+                    attrs: { id: "top-category-filter" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.currentTopFilter = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { selected: "" }, domProps: { value: 0 } },
+                      [_vm._v(" All")]
+                    ),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 5 } }, [
+                      _vm._v(" Top 5")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 10 } }, [
+                      _vm._v(" Top 10")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 15 } }, [
+                      _vm._v(" Top 15")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ]
       ),
-      _vm._v(" "),
-      _c("div", { staticClass: "inline-block relative w-64" }, [
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.currentCountFilter,
-                expression: "currentCountFilter"
-              }
-            ],
-            staticClass:
-              "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
-            attrs: { id: "category-count-filter" },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.currentCountFilter = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          [
-            _c("option", { attrs: { selected: "" }, domProps: { value: 1 } }, [
-              _vm._v(" Category with > 1 Project ")
-            ]),
-            _vm._v(" "),
-            _c("option", { domProps: { value: 5 } }, [
-              _vm._v(" Category with > 5 Projects")
-            ]),
-            _vm._v(" "),
-            _c("option", { domProps: { value: 10 } }, [
-              _vm._v(" Category with > 10 Projects")
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-          },
-          [
-            _c(
-              "svg",
-              {
-                staticClass: "fill-current h-4 w-4",
-                attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
-                  viewBox: "0 0 20 20"
-                }
-              },
-              [
-                _c("path", {
-                  attrs: {
-                    d:
-                      "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                  }
-                })
-              ]
-            )
-          ]
-        )
-      ]),
       _vm._v(" "),
       _vm.loaded
         ? _c("pie-chart", {
@@ -70365,19 +70521,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/ProjectsByCategoryBarChartComponent.vue":
+/***/ "./resources/js/components/ProjectsByCategoryPieChartComponent.vue":
 /*!*************************************************************************!*\
-  !*** ./resources/js/components/ProjectsByCategoryBarChartComponent.vue ***!
+  !*** ./resources/js/components/ProjectsByCategoryPieChartComponent.vue ***!
   \*************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ProjectsByCategoryBarChartComponent_vue_vue_type_template_id_1e6b4948_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProjectsByCategoryBarChartComponent.vue?vue&type=template&id=1e6b4948&scoped=true& */ "./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=template&id=1e6b4948&scoped=true&");
-/* harmony import */ var _ProjectsByCategoryBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProjectsByCategoryBarChartComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ProjectsByCategoryBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ProjectsByCategoryBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _ProjectsByCategoryPieChartComponent_vue_vue_type_template_id_cb9f1afe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProjectsByCategoryPieChartComponent.vue?vue&type=template&id=cb9f1afe&scoped=true& */ "./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=template&id=cb9f1afe&scoped=true&");
+/* harmony import */ var _ProjectsByCategoryPieChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProjectsByCategoryPieChartComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -70386,50 +70541,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ProjectsByCategoryBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ProjectsByCategoryBarChartComponent_vue_vue_type_template_id_1e6b4948_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ProjectsByCategoryBarChartComponent_vue_vue_type_template_id_1e6b4948_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _ProjectsByCategoryPieChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProjectsByCategoryPieChartComponent_vue_vue_type_template_id_cb9f1afe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProjectsByCategoryPieChartComponent_vue_vue_type_template_id_cb9f1afe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "1e6b4948",
+  "cb9f1afe",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/ProjectsByCategoryBarChartComponent.vue"
+component.options.__file = "resources/js/components/ProjectsByCategoryPieChartComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************!*\
-  !*** ./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProjectsByCategoryBarChartComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryPieChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProjectsByCategoryPieChartComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryPieChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=template&id=1e6b4948&scoped=true&":
+/***/ "./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=template&id=cb9f1afe&scoped=true&":
 /*!********************************************************************************************************************!*\
-  !*** ./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=template&id=1e6b4948&scoped=true& ***!
+  !*** ./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=template&id=cb9f1afe&scoped=true& ***!
   \********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryBarChartComponent_vue_vue_type_template_id_1e6b4948_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProjectsByCategoryBarChartComponent.vue?vue&type=template&id=1e6b4948&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsByCategoryBarChartComponent.vue?vue&type=template&id=1e6b4948&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryBarChartComponent_vue_vue_type_template_id_1e6b4948_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryPieChartComponent_vue_vue_type_template_id_cb9f1afe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProjectsByCategoryPieChartComponent.vue?vue&type=template&id=cb9f1afe&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsByCategoryPieChartComponent.vue?vue&type=template&id=cb9f1afe&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryPieChartComponent_vue_vue_type_template_id_cb9f1afe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryBarChartComponent_vue_vue_type_template_id_1e6b4948_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsByCategoryPieChartComponent_vue_vue_type_template_id_cb9f1afe_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
