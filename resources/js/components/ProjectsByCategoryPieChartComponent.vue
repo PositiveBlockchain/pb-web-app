@@ -7,7 +7,7 @@
                     Category filter
                 </label>
                 <div class="relative">
-                    <select id="category-count-filter" v-model="currentCountFilter"
+                    <select id="category-count-filter" v-model="currentCountFilter"  v-on:change="resetTopFilter"
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                         <option v-bind:value="1" selected> Category with > 1 Project</option>
                         <option v-bind:value="5"> Category with > 5 Projects</option>
@@ -26,7 +26,7 @@
                     Top Categories
                 </label>
                 <div class="relative">
-                    <select id="top-category-filter" v-model="currentTopFilter"
+                    <select id="top-category-filter" v-model="currentTopFilter" v-on:change="resetCountFilter"
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                         <option v-bind:value="0" selected> All</option>
                         <option v-bind:value="5"> Top 5</option>
@@ -88,9 +88,7 @@
                     filtered = _.filter(this.taxonomies, taxonomy => {
                         return taxonomy.count > this.currentCountFilter;
                     });
-                }
-                else if(this.currentTopFilter > 0)
-                {
+                } else if (this.currentTopFilter > 0) {
                     filtered = _.slice(this.taxonomies, 0, this.currentTopFilter);
                 }
 
@@ -113,6 +111,12 @@
         mounted() {
         },
         methods: {
+            resetCountFilter() {
+                this.currentCountFilter = 1;
+            },
+            resetTopFilter() {
+                this.currentTopFilter = 0;
+            },
             generatePieColors(values) {
                 const colors = [];
                 for (let i = 0; i < values.length; i++) {
