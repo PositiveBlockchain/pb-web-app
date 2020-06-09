@@ -1965,6 +1965,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         borderWidth: 0,
         tooltips: {
           enabled: true,
+          bodyFontSize: 30,
           callbacks: {
             label: function label(tooltipItem, data) {
               var percentage = data['datasets'][0]['data'][tooltipItem['index']] * 100 / _.sum(data['datasets'][0]['data']);
