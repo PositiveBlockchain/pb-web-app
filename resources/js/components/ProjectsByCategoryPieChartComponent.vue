@@ -1,5 +1,6 @@
 <template>
-    <div id="chart_project_categories">
+    <div id="chart-project-categories">
+        <h2 class="text-center uppercase mb-5 text-2xl"><slot></slot></h2>
         <div id="filters" class="flex flex-wrap -mx-3 mb-2">
             <div id="filter_category_by_count" class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -52,12 +53,6 @@
         name: "ProjectsByCategoryPieChartComponent",
         components: {PieChart},
         extends: Pie,
-        props: {
-            taxonomyCountFilterProperty: {
-                type: Number,
-                default: null
-            },
-        },
         data() {
             return {
                 loaded: false,
@@ -129,15 +124,11 @@
                 }
                 return colors;
             },
-            assignDataToChart() {
-
-            },
             getProjectCategoryReport: async function () {
                 this.loaded = false;
                 try {
-                    const response = await axios.get('api/v1/reports/projects');
+                    const response = await axios.get('api/v1/reports/project-categories');
                     this.taxonomies = response.data.data;
-                    this.assignDataToChart();
                     this.loaded = true;
                 } catch (e) {
                     console.error(e);
