@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\MetaFields;
-use App\Post;
+use App\Repositories\ProjectRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class ReportsProjectAgesApiController extends Controller {
 
@@ -18,8 +16,9 @@ class ReportsProjectAgesApiController extends Controller {
      */
     public function __invoke(Request $request)
     {
-        $posts = Post::type('listing')->published()->get();
-        $projectYears = $this->filteredPosts($posts, MetaFields::LP_OPTIONS_FIELD)
+        $projectRepo = new ProjectRepository();
+
+        $projectYears = $projectRepo->getWpListingFields()
             ->map(function ($post) {
                 if (!Arr::exists($post->fields, MetaFields::CREATION_YEAR_FIELD)
                     || empty($post->fields[MetaFields::CREATION_YEAR_FIELD])
@@ -41,27 +40,5 @@ class ReportsProjectAgesApiController extends Controller {
             'link' => ['self' => route('api.reports.projects_by_ages')],
         ], Response::HTTP_OK
         );
-    }
-
-    /**
-     * @param Collection $posts
-     * @param string $filter
-     * @return Collection
-     */
-    private function filteredPosts(Collection $posts, string $filter): Collection
-    {
-        return $posts->map(function ($post) use ($filter) {
-            if ($post->meta->count() > 0)
-            {
-                $listingMetaValues = MetaFields::filterListingMetaFields($post, $filter);
-
-                $post = MetaFields::appendMetaFields($listingMetaValues, $post);
-
-                //remove all default meta data
-                unset($post->meta);
-            }
-
-            return $post;
-        });
     }
 }
