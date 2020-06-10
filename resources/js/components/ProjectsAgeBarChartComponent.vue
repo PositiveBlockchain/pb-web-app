@@ -1,5 +1,5 @@
 <template>
-    <div id="chart-project-foundation-years">
+    <div id="chart-project-foundation-years" class="p-3 shadow-lg bg-white m-1">
         <h2 class="text-center uppercase mb-5 text-2xl">
             <slot></slot>
         </h2>

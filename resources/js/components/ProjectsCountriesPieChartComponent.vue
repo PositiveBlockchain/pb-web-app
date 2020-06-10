@@ -1,6 +1,8 @@
 <template>
-    <div id="chart-project-locations">
-        <h2 class="text-center uppercase text-2xl"><slot></slot></h2>
+    <div id="chart-project-locations" class="p-3 shadow-lg bg-white m-1">
+        <h2 class="text-center mb-5 uppercase text-2xl">
+            <slot></slot>
+        </h2>
         <pie-chart :chartdata="filteredTaxonomies" :options="options"></pie-chart>
     </div>
 </template>

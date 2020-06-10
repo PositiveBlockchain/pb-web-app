@@ -2090,6 +2090,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2235,6 +2237,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -58332,7 +58336,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "chart-project-foundation-years" } },
+    {
+      staticClass: "p-3 shadow-lg bg-white m-1",
+      attrs: { id: "chart-project-foundation-years" }
+    },
     [
       _c(
         "h2",
@@ -58374,7 +58381,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "chart-project-categories" } },
+    {
+      staticClass: "p-3 shadow-lg bg-white m-1",
+      attrs: { id: "chart-project-categories" }
+    },
     [
       _c(
         "h2",
@@ -58624,11 +58634,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "chart-project-locations" } },
+    {
+      staticClass: "p-3 shadow-lg bg-white m-1",
+      attrs: { id: "chart-project-locations" }
+    },
     [
       _c(
         "h2",
-        { staticClass: "text-center uppercase text-2xl" },
+        { staticClass: "text-center mb-5 uppercase text-2xl" },
         [_vm._t("default")],
         2
       ),
