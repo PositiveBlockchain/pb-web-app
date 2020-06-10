@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\MetaFields;
-use App\Post;
 use App\Repositories\ProjectRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 
 class ProjectsIndexApiController extends Controller {
 
