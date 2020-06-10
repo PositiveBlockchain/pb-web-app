@@ -21,7 +21,11 @@
                 projectYears: null,
                 yearCounts: null,
                 chartdata: null,
-                options: {},
+                options: {
+                    legend: {
+                        display: false,
+                    }
+                },
             }
         },
         created() {
@@ -33,6 +37,7 @@
                 this.chartdata = {
                     labels: _.keys(this.responseData),
                     datasets: [{
+                        label: "",
                         data: values,
                         backgroundColor: this.generateColors(values),
                     }

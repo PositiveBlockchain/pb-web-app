@@ -1873,6 +1873,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -1935,7 +1938,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       projectYears: null,
       yearCounts: null,
       chartdata: null,
-      options: {}
+      options: {
+        legend: {
+          display: false
+        }
+      }
     };
   },
   created: function created() {
@@ -1948,6 +1955,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.chartdata = {
         labels: _.keys(this.responseData),
         datasets: [{
+          label: "",
           data: values,
           backgroundColor: this.generateColors(values)
         }]
@@ -58275,27 +58283,29 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "mt-10" },
-      [
-        _c("projects-countries-pie-chart-component", [
-          _vm._v("\n            Projects by Countries\n        ")
-        ])
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "mt-10" },
-      [
-        _c("projects-age-bar-chart-component", [
-          _vm._v("\n           Projects Foundation Year\n        ")
-        ])
-      ],
-      1
-    )
+    _c("div", { staticClass: "flex flex-wrap" }, [
+      _c(
+        "div",
+        { staticClass: "w-1/2 mt-10" },
+        [
+          _c("projects-countries-pie-chart-component", [
+            _vm._v("\n                Projects by Countries\n            ")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "w-1/2 mt-10" },
+        [
+          _c("projects-age-bar-chart-component", [
+            _vm._v("\n                Projects Foundation Year\n            ")
+          ])
+        ],
+        1
+      )
+    ])
   ])
 }
 var staticRenderFns = []
