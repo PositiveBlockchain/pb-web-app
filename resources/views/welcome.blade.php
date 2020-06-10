@@ -10,6 +10,13 @@
 
     <title>{{ config('app.name', 'PositiveBlockchain') }}</title>
 
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon-16x16.png')}}">
+    <link rel="manifest" href="{{asset('site.webmanifest')}}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <!-- Scripts -->
@@ -22,7 +29,7 @@
             <div class="flex items-center justify-center">
                 <div class="mr-6">
                     <a href="http://positiveblockchain.local" class="text-lg font-semibold text-gray-100 no-underline">
-                        PB Dashboard
+                        <img class="inline-block" width="50" src="{{asset('pb-sdg-logo.png')}}" alt="Positive Blockchain SDG Logo"> Dashboard
                     </a>
                 </div>
                 <div class="flex-1 text-right">
