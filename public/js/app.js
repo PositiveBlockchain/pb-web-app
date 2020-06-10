@@ -1905,6 +1905,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _charts_BarChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./charts/BarChart */ "./resources/js/components/charts/BarChart.vue");
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1918,6 +1919,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProjectsAgeBarChartComponent",
@@ -1939,16 +1943,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     getChartData: function getChartData() {
+      var values = _.values(this.responseData);
+
       this.chartdata = {
         labels: _.keys(this.responseData),
         datasets: [{
-          data: _.values(this.responseData)
+          data: values,
+          backgroundColor: this.generateColors(values)
         }]
       };
       return this.chartdata;
     }
   },
   methods: {
+    generateColors: function generateColors(values) {
+      var colors = [];
+
+      for (var i = 0; i < values.length; i++) {
+        var red = Math.floor(Math.random() * 200);
+        var green = Math.floor(Math.random() * 200);
+        var blue = Math.floor(Math.random() * 200);
+        var color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+        colors.push(color);
+      }
+
+      return colors;
+    },
     getProjectAgesReport: function () {
       var _getProjectAgesReport = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var response;
