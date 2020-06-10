@@ -24,7 +24,7 @@
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none">
 <div class="flex flex-col">
-    <nav class="bg-blue-900 shadow mb-8 py-6">
+    <nav class="bg-gray-500 shadow mb-8 py-6">
         <div class="container mx-auto px-6 md:px-0">
             <div class="flex items-center justify-center">
                 <div class="mr-6">
@@ -42,7 +42,7 @@
         <div class="flex flex-col justify-around h-full">
             <div id="app">
                 <h1 class="text-gray-600 text-center font-light tracking-wider text-5xl mb-6">
-                    {{ config('app.name', 'PositiveBlockchain') }} API & Web App
+                    {{ config('app.name', 'PositiveBlockchain') }} Dashboard
                 </h1>
                 <App></App>
                 <footer class="mt-5">
