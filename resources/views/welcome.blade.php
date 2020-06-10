@@ -42,7 +42,7 @@
         <div class="flex flex-col justify-around h-full">
             <div id="app">
                 <h1 class="text-gray-600 text-center font-light tracking-wider text-5xl mb-6">
-                    {{ config('app.name', 'PositiveBlockchain') }} Dashboard
+                    Blockchain Social Impact <br> Projects   Dashboard
                 </h1>
                 <App></App>
                 <footer class="mt-5">
