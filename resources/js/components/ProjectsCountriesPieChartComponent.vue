@@ -9,7 +9,7 @@
     import PieChart from "./charts/PieChart";
 
     export default {
-        name: "ProjectLocationsPieChartComponent",
+        name: "ProjectsCountriesPieChartComponent",
         components: {PieChart},
         data() {
             return {

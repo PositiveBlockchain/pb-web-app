@@ -37,7 +37,15 @@ class MetaFields {
         }
         else
         {
-            $post->fields = MetaFieldRenamer::arrayKeyFromKebapToSnake($fieldValues['value']);
+            $value = $fieldValues['value'];
+            if (is_array($value))
+            {
+                $post->fields = MetaFieldRenamer::arrayKeyFromKebapToSnake($fieldValues['value']);
+            }
+            if (is_string($value))
+            {
+                $post->fields = [$value];
+            }
         }
 
         $post->links = ['self' => route('api.projects.show', $post->ID)];

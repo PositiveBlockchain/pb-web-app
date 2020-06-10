@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 
-class ProjectsIndexApiController extends Controller {
+class ReportsProjectAgesApiController extends Controller {
 
     /**
      * @param Request $request
@@ -16,28 +16,23 @@ class ProjectsIndexApiController extends Controller {
      */
     public function __invoke(Request $request)
     {
-        $limit = 10; // default limit
-        if ($request->has('limit'))
-        {
-            $limit = $request->get('limit');
-        }
-        $posts = Post::type('listing')->published()->limit($limit)->get();
+        $posts = Post::type('listing')->published()->get();
 
         return response()->json([
             'status' => 'ok',
             'code' => Response::HTTP_OK,
             'data' => $this->filteredPosts($posts, MetaFields::LP_OPTIONS_FIELD),
-            'link' => ['self' => route('api.projects.index')],
+            'link' => ['self' => route('api.reports.projects_by_ages')],
         ], Response::HTTP_OK
         );
     }
 
     /**
-     * @param $posts
+     * @param Collection $posts
      * @param string $filter
-     * @return mixed
+     * @return Collection
      */
-    private function filteredPosts(Collection $posts, string $filter)
+    private function filteredPosts(Collection $posts, string $filter): Collection
     {
         return $posts->map(function ($post) use ($filter) {
             if ($post->meta->count() > 0)
@@ -53,5 +48,4 @@ class ProjectsIndexApiController extends Controller {
             return $post;
         });
     }
-
 }

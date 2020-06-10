@@ -6,20 +6,22 @@
             </projects-by-category-pie-chart-component>
         </div>
         <div class="mt-10">
-            <project-locations-pie-chart-component>
-                Projects by Locations
-            </project-locations-pie-chart-component>
+            <projects-countries-pie-chart-component>
+                Projects by Countries
+            </projects-countries-pie-chart-component>
         </div>
     </div>
 </template>
 
 <script>
     import ProjectsByCategoryPieChartComponent from "./components/ProjectsByCategoryPieChartComponent";
-    import ProjectLocationsPieChartComponent from "./components/ProjectLocationsPieChartComponent";
+    import ProjectsCountriesPieChartComponent from "./components/ProjectsCountriesPieChartComponent";
 
     export default {
         name: "App",
-        components: {ProjectLocationsPieChartComponent, ProjectsByCategoryPieChartComponent},
+        components: {
+            ProjectsCountriesPieChartComponent,
+            ProjectLocationsPieChartComponent, ProjectsByCategoryPieChartComponent},
         data() {
             return {}
         },
