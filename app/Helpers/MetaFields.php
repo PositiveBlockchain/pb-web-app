@@ -11,6 +11,7 @@ class MetaFields {
 
     const LP_OPTIONS_FIELD = 'lp_listingpro_options_fields';
     const CREATION_YEAR_FIELD = 'creation_year';
+    const ORGANIZATION_TYPE_FIELD = 'organization_type';
 
     /**
      * @param Post $post

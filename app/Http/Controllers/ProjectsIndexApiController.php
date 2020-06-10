@@ -16,7 +16,7 @@ class ProjectsIndexApiController extends Controller {
     public function __invoke(Request $request)
     {
         $projectRepo = new ProjectRepository();
-        $limit = 10; // default limit
+        $limit = 10; // default limit move to config later
         if ($request->has('limit'))
         {
             $limit = $request->get('limit');
