@@ -10,6 +10,7 @@ use Illuminate\Support\Arr;
 class MetaFields {
 
     const LP_OPTIONS_FIELD = 'lp_listingpro_options_fields';
+    const CREATION_YEAR_FIELD = 'creation_year';
 
     /**
      * @param Post $post
