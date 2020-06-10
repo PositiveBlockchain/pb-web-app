@@ -21,7 +21,8 @@
         name: "App",
         components: {
             ProjectsCountriesPieChartComponent,
-            ProjectLocationsPieChartComponent, ProjectsByCategoryPieChartComponent},
+            ProjectsByCategoryPieChartComponent
+        },
         data() {
             return {}
         },

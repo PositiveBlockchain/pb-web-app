@@ -1873,7 +1873,6 @@ __webpack_require__.r(__webpack_exports__);
   name: "App",
   components: {
     ProjectsCountriesPieChartComponent: _components_ProjectsCountriesPieChartComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    ProjectLocationsPieChartComponent: ProjectLocationsPieChartComponent,
     ProjectsByCategoryPieChartComponent: _components_ProjectsByCategoryPieChartComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
