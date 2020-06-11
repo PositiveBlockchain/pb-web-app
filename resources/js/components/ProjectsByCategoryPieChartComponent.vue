@@ -54,7 +54,6 @@
     export default {
         name: "ProjectsByCategoryPieChartComponent",
         components: {PieChart},
-        extends: Pie,
         data() {
             return {
                 loaded: false,

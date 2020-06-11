@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\MetaFields;
 use App\Repositories\ProjectRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
@@ -14,7 +15,7 @@ class ReportsProjectAgesApiController extends Controller {
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $projectRepo = new ProjectRepository();
 

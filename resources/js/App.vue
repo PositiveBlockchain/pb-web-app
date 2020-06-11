@@ -18,7 +18,7 @@
             </div>
             <div class="">
                 <projects-age-bar-chart-component>
-                    Projects Foundation Year
+                    Project Foundation Years
                 </projects-age-bar-chart-component>
             </div>
         </div>
@@ -31,10 +31,12 @@
     import ProjectsCountriesPieChartComponent from "./components/ProjectsCountriesPieChartComponent";
     import ProjectsAgeBarChartComponent from "./components/ProjectsAgeBarChartComponent";
     import ProjectsOrganizationTypesBarChartComponent from "./components/ProjectsOrganizationTypesBarChartComponent";
+    import ProjectMainCategoriesPieChartComponent from "./components/ProjectMainCategoriesPieChartComponent";
 
     export default {
         name: "App",
         components: {
+            ProjectMainCategoriesPieChartComponent,
             ProjectsOrganizationTypesBarChartComponent,
             ProjectsAgeBarChartComponent,
             ProjectsCountriesPieChartComponent,
