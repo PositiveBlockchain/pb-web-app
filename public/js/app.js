@@ -2252,7 +2252,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       chartdata: null,
       taxonomies: null,
       currentCountFilter: 1,
-      currentTopFilter: 0,
+      currentTopFilter: 10,
       options: {
         responsive: true,
         cutoutPercentage: 50,
@@ -59608,114 +59608,6 @@ var render = function() {
                     "div",
                     {
                       staticClass: "w-full md:w-1/3 px-3 mb-6 md:mb-0",
-                      attrs: { id: "filter_category_by_count" }
-                    },
-                    [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-                          attrs: { for: "category-count-filter" }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    Category filter\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "relative" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.currentCountFilter,
-                                expression: "currentCountFilter"
-                              }
-                            ],
-                            staticClass:
-                              "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
-                            attrs: { id: "category-count-filter" },
-                            on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.currentCountFilter = $event.target
-                                    .multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                },
-                                _vm.resetTopFilter
-                              ]
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              {
-                                attrs: { selected: "" },
-                                domProps: { value: 1 }
-                              },
-                              [_vm._v(" Category with > 1 Project")]
-                            ),
-                            _vm._v(" "),
-                            _c("option", { domProps: { value: 5 } }, [
-                              _vm._v(" Category with > 5 Projects")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { domProps: { value: 10 } }, [
-                              _vm._v(" Category with > 10 Projects")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-                          },
-                          [
-                            _c(
-                              "svg",
-                              {
-                                staticClass: "fill-current h-4 w-4",
-                                attrs: {
-                                  xmlns: "http://www.w3.org/2000/svg",
-                                  viewBox: "0 0 20 20"
-                                }
-                              },
-                              [
-                                _c("path", {
-                                  attrs: {
-                                    d:
-                                      "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                                  }
-                                })
-                              ]
-                            )
-                          ]
-                        )
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "w-full md:w-1/3 px-3 mb-6 md:mb-0",
                       attrs: { id: "filter_top_categories" }
                     },
                     [
@@ -59788,6 +59680,114 @@ var render = function() {
                             _vm._v(" "),
                             _c("option", { domProps: { value: 15 } }, [
                               _vm._v(" Top 15")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "fill-current h-4 w-4",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  viewBox: "0 0 20 20"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    d:
+                                      "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "w-full md:w-1/3 px-3 mb-6 md:mb-0",
+                      attrs: { id: "filter_category_by_count" }
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                          attrs: { for: "category-count-filter" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    Category filter\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "relative" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.currentCountFilter,
+                                expression: "currentCountFilter"
+                              }
+                            ],
+                            staticClass:
+                              "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
+                            attrs: { id: "category-count-filter" },
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.currentCountFilter = $event.target
+                                    .multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                                _vm.resetTopFilter
+                              ]
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { selected: "" },
+                                domProps: { value: 1 }
+                              },
+                              [_vm._v(" Category with > 1 Project")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { domProps: { value: 5 } }, [
+                              _vm._v(" Category with > 5 Projects")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { domProps: { value: 10 } }, [
+                              _vm._v(" Category with > 10 Projects")
                             ])
                           ]
                         ),
