@@ -1,15 +1,21 @@
 <template>
     <div id="chart-project-locations" class="p-3 shadow-lg bg-white m-1">
-        <pie-chart :chartdata="filteredTaxonomies" :options="getOptions"></pie-chart>
+        <div v-if="loaded" class="chart">
+            <pie-chart :chartdata="filteredTaxonomies" :options="getOptions"></pie-chart>
+        </div>
+        <div v-else class="flex justify-center">
+            <spinner></spinner>
+        </div>
     </div>
 </template>
 
 <script>
     import PieChart from "./charts/PieChart";
+    import Spinner from "./helpers/Spinner";
 
     export default {
         name: "ProjectsCountriesPieChartComponent",
-        components: {PieChart},
+        components: {Spinner, PieChart},
         data() {
             return {
                 loaded: false,

@@ -1,6 +1,12 @@
 <template>
     <div id="chart-project-stages" class="p-3 shadow-lg bg-white m-1">
-        <horizontal-bar-chart v-if="loaded" :options="getOptions" :chartdata="getChartData"></horizontal-bar-chart>
+        <div class="chart" v-if="loaded">
+            <horizontal-bar-chart :options="getOptions" :chartdata="getChartData"></horizontal-bar-chart>
+            <small class="mt-3 block">Projects with unknown stages aren't included</small>
+        </div>
+        <div v-else>
+            <spinner></spinner>
+        </div>
     </div>
 
 </template>
@@ -8,10 +14,11 @@
 <script>
     import BarChart from "./charts/BarChart";
     import HorizontalBarChart from "./charts/HorizontalBarChart";
+    import Spinner from "./helpers/Spinner";
 
     export default {
         name: "ProjectsStagesHorizontalBarChartComponent",
-        components: {HorizontalBarChart, BarChart},
+        components: {Spinner, HorizontalBarChart, BarChart},
         data() {
             return {
                 loaded: false,

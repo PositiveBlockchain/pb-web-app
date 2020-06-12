@@ -1,15 +1,22 @@
 <template>
     <div id="chart-project-foundation-years" class="p-3 shadow-lg bg-white m-1">
-        <bar-chart v-if="loaded" :options="getOptions" :chartdata="getChartData" />
+        <div v-if="loaded" class="chart">
+            <bar-chart :options="getOptions" :chartdata="getChartData"/>
+            <small class="mt-3 block">Projects with unknown foundation year aren't included</small>
+        </div>
+        <div v-else class="flex justify-center">
+            <spinner></spinner>
+        </div>
     </div>
 </template>
 
 <script>
     import BarChart from "./charts/BarChart";
+    import Spinner from "./helpers/Spinner";
 
     export default {
         name: "ProjectsAgeBarChartComponent",
-        components: {BarChart},
+        components: {Spinner, BarChart},
         data() {
             return {
                 loaded: false,
