@@ -21,8 +21,7 @@
                 loaded: false,
                 response: null,
                 chartdata: null,
-                taxonomies: null,
-                currentTopFilter: 0,
+                countries: null,
                 options: {
                     responsive: true,
                     cutoutPercentage: 50,
@@ -53,11 +52,11 @@
                 }
             },
             filteredTaxonomies: function () {
-                const values = _.map(this.taxonomies, 'count');
+                const values = _.map(this.countries, 'count');
                 this.chartdata = {
-                    labels: _.map(this.taxonomies, 'name'),
+                    labels: _.map(this.countries, 'name'),
                     datasets: [{
-                        label: 'Project Locations',
+                        label: 'Project countries',
                         data: values,
                         backgroundColor: this.generatePieColors(values),
                     }],
@@ -86,7 +85,7 @@
                 try {
                     const response = await axios.get('api/v1/reports/project-locations');
                     this.response = response.data;
-                    this.taxonomies = this.response.data;
+                    this.countries = this.response.data;
                     this.loaded = true;
                 } catch (e) {
                     console.error(e);

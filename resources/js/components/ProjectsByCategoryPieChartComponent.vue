@@ -1,9 +1,6 @@
 <template>
     <div id="chart-project-categories" class="p-3 shadow-lg bg-white m-1">
-        <div v-if="loaded" class="chart"><
-            <h2 class="text-center uppercase mb-5 text-2xl">
-                <slot></slot>
-            </h2>
+        <div v-if="loaded" class="chart">
             <div id="filters" class="flex flex-wrap -mx-3 mb-2">
                 <div id="filter_category_by_count" class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -47,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <pie-chart :chartdata="filteredTaxonomies" :options="options"></pie-chart>
+            <pie-chart :chartdata="filteredTaxonomies" :options="getOptions"></pie-chart>
         </div>
         <div v-else class="flex justify-center">
             <spinner></spinner>
@@ -72,6 +69,10 @@
                     responsive: true,
                     cutoutPercentage: 50,
                     borderWidth: 0,
+                    title: {
+                        display: true,
+                        text: '',
+                    },
                     tooltips: {
                         enabled: true,
                         bodyFontSize: 30,
@@ -87,6 +88,12 @@
             }
         },
         computed: {
+            getOptions: function () {
+                if (this.loaded) {
+                    this.options.title.text = _.upperCase(this.response.chart_title);
+                    return this.options;
+                }
+            },
             filteredTaxonomies: function () {
                 let filtered = [];
                 if (this.currentTopFilter === 0) {
@@ -137,6 +144,7 @@
                 this.loaded = false;
                 try {
                     const response = await axios.get('api/v1/reports/project-categories');
+                    this.response = response.data;
                     this.taxonomies = response.data.data;
                     this.loaded = true;
                 } catch (e) {

@@ -11,7 +11,7 @@ class Post extends CorcelPost {
 
     protected $hidden = [
         'type',
-        'taxonomies',
+        'countries',
         'url',
         'slug',
         'terms',

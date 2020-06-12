@@ -1875,16 +1875,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2248,9 +2238,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2270,6 +2257,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         responsive: true,
         cutoutPercentage: 50,
         borderWidth: 0,
+        title: {
+          display: true,
+          text: ''
+        },
         tooltips: {
           enabled: true,
           bodyFontSize: 30,
@@ -2286,6 +2277,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   computed: {
+    getOptions: function getOptions() {
+      if (this.loaded) {
+        this.options.title.text = _.upperCase(this.response.chart_title);
+        return this.options;
+      }
+    },
     filteredTaxonomies: function filteredTaxonomies() {
       var _this = this;
 
@@ -2350,22 +2347,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 response = _context.sent;
+                this.response = response.data;
                 this.taxonomies = response.data.data;
                 this.loaded = true;
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 console.error(_context.t0);
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 10]]);
       }));
 
       function getProjectCategoryReport() {
@@ -2422,8 +2420,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loaded: false,
       response: null,
       chartdata: null,
-      taxonomies: null,
-      currentTopFilter: 0,
+      countries: null,
       options: {
         responsive: true,
         cutoutPercentage: 50,
@@ -2455,12 +2452,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     filteredTaxonomies: function filteredTaxonomies() {
-      var values = _.map(this.taxonomies, 'count');
+      var values = _.map(this.countries, 'count');
 
       this.chartdata = {
-        labels: _.map(this.taxonomies, 'name'),
+        labels: _.map(this.countries, 'name'),
         datasets: [{
-          label: 'Project Locations',
+          label: 'Project countries',
           data: values,
           backgroundColor: this.generatePieColors(values)
         }]
@@ -2500,7 +2497,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 response = _context.sent;
                 this.response = response.data;
-                this.taxonomies = this.response.data;
+                this.countries = this.response.data;
                 this.loaded = true;
                 _context.next = 13;
                 break;
@@ -59455,49 +59452,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "dashboard" } }, [
-    _c(
-      "div",
-      [
-        _c("projects-by-category-pie-chart-component", [
-          _vm._v("\n            Projects by Categories\n        ")
-        ])
-      ],
-      1
-    ),
+    _c("div", [_c("projects-by-category-pie-chart-component")], 1),
     _vm._v(" "),
     _c(
       "div",
       { staticClass: "grid grid-cols-2 gap-2" },
       [
-        _c("projects-organization-types-bar-chart-component", [
-          _vm._v("\n            Projects Organization Types\n        ")
-        ]),
+        _c("projects-organization-types-bar-chart-component"),
         _vm._v(" "),
-        _c("projects-stages-horizontal-bar-chart-component", [
-          _vm._v("\n            Project Stages\n        ")
-        ]),
+        _c("projects-stages-horizontal-bar-chart-component"),
         _vm._v(" "),
-        _c(
-          "div",
-          {},
-          [
-            _c("projects-countries-pie-chart-component", [
-              _vm._v("\n                Projects by Countries\n            ")
-            ])
-          ],
-          1
-        ),
+        _c("div", {}, [_c("projects-countries-pie-chart-component")], 1),
         _vm._v(" "),
-        _c(
-          "div",
-          {},
-          [
-            _c("projects-age-bar-chart-component", [
-              _vm._v("\n                Project Foundation Years\n            ")
-            ])
-          ],
-          1
-        )
+        _c("div", {}, [_c("projects-age-bar-chart-component")], 1)
       ],
       1
     )
@@ -59630,14 +59597,6 @@ var render = function() {
             "div",
             { staticClass: "chart" },
             [
-              _vm._v("<\n        "),
-              _c(
-                "h2",
-                { staticClass: "text-center uppercase mb-5 text-2xl" },
-                [_vm._t("default")],
-                2
-              ),
-              _vm._v(" "),
               _c(
                 "div",
                 {
@@ -59869,7 +59828,7 @@ var render = function() {
               _c("pie-chart", {
                 attrs: {
                   chartdata: _vm.filteredTaxonomies,
-                  options: _vm.options
+                  options: _vm.getOptions
                 }
               })
             ],
