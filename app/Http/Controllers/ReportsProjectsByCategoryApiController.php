@@ -27,7 +27,7 @@ class ReportsProjectsByCategoryApiController extends Controller {
         return response()->json([
                 'status' => 'ok',
                 'code' => Response::HTTP_OK,
-                'data' => $taxonomies->values(),
+                'data' => $taxonomies->sortByDesc('count')->values(),
                 'chart_title' => 'Project categories distribution',
                 'links' => ['self' => route('api.reports.projects_by_categories')],
             ]

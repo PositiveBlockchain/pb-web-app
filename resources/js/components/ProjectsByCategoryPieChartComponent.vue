@@ -64,7 +64,7 @@
                 chartdata: null,
                 taxonomies: null,
                 currentCountFilter: 1,
-                currentTopFilter: 10,
+                currentTopFilter: 0,
                 options: {
                     responsive: true,
                     cutoutPercentage: 50,
@@ -104,7 +104,7 @@
                     filtered = _.slice(this.taxonomies, 0, this.currentTopFilter);
                 }
 
-                const values = _.orderBy(_.map(filtered, 'count'));
+                const values = _.map(filtered, 'count');
                 this.chartdata = {
                     labels: _.map(filtered, 'name'),
                     datasets: [{

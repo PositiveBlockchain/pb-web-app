@@ -2252,7 +2252,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       chartdata: null,
       taxonomies: null,
       currentCountFilter: 1,
-      currentTopFilter: 10,
+      currentTopFilter: 0,
       options: {
         responsive: true,
         cutoutPercentage: 50,
@@ -2296,7 +2296,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         filtered = _.slice(this.taxonomies, 0, this.currentTopFilter);
       }
 
-      var values = _.orderBy(_.map(filtered, 'count'));
+      var values = _.map(filtered, 'count');
 
       this.chartdata = {
         labels: _.map(filtered, 'name'),
