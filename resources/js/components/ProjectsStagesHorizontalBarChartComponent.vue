@@ -1,15 +1,17 @@
 <template>
-    <div id="chart-project-foundation-years" class="p-3 shadow-lg bg-white m-1">
-        <bar-chart v-if="loaded" :options="getOptions" :chartdata="getChartData" />
+    <div id="chart-project-stages" class="p-3 shadow-lg bg-white m-1">
+        <horizontal-bar-chart v-if="loaded" :options="getOptions" :chartdata="getChartData"></horizontal-bar-chart>
     </div>
+
 </template>
 
 <script>
     import BarChart from "./charts/BarChart";
+    import HorizontalBarChart from "./charts/HorizontalBarChart";
 
     export default {
-        name: "ProjectsAgeBarChartComponent",
-        components: {BarChart},
+        name: "ProjectsStagesHorizontalBarChartComponent",
+        components: {HorizontalBarChart, BarChart},
         data() {
             return {
                 loaded: false,
@@ -27,7 +29,7 @@
             }
         },
         created() {
-            this.getProjectAgesReport();
+            this.getProjectStagesReport();
         },
         computed: {
             getOptions: function () {
@@ -63,10 +65,10 @@
                 }
                 return colors;
             },
-            getProjectAgesReport: async function () {
+            getProjectStagesReport: async function () {
                 this.loaded = false;
                 try {
-                    const response = await axios.get('api/v1/reports/project-ages');
+                    const response = await axios.get('api/v1/reports/project-stages');
                     if (response.data.status === "ok") {
                         this.response = response.data;
                         this.loaded = true;

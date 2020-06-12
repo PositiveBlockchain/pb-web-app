@@ -6,7 +6,7 @@ use App\Taxonomy;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ReportsLocationsApiController extends Controller {
+class ReportsCountriesApiController extends Controller {
 
     public function __invoke(Request $request)
     {
@@ -23,6 +23,7 @@ class ReportsLocationsApiController extends Controller {
                 'status' => 'ok',
                 'code' => Response::HTTP_OK,
                 'data' => $taxonomies->values(),
+                'chart_title' => 'Project country distribution',
                 'links' => ['self' => route('api.reports.projects_by_locations')],
             ]
         );

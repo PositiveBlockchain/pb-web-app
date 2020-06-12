@@ -27,7 +27,7 @@ class ReportsProjectAgesApiController extends Controller {
                 )
                 {
                     $fields = $post->fields;
-                    $fields[MetaFields::CREATION_YEAR_FIELD] = 'unkown';
+                    $fields[MetaFields::CREATION_YEAR_FIELD] = 'unknown';
                     $post->fields = $fields;
                 }
 
@@ -37,7 +37,8 @@ class ReportsProjectAgesApiController extends Controller {
         return response()->json([
             'status' => 'ok',
             'code' => Response::HTTP_OK,
-            'data' => $projectYears,
+            'data' => $projectYears->forget('unknown'),
+            'chart_title' => 'Project foundation years',
             'link' => ['self' => route('api.reports.projects_by_ages')],
         ], Response::HTTP_OK
         );

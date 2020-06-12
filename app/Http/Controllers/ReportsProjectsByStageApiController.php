@@ -27,7 +27,7 @@ class ReportsProjectsByStageApiController extends Controller {
                 )
                 {
                     $fields = $post->fields;
-                    $fields[MetaFields::STAGE_FIELD] = 'unkown';
+                    $fields[MetaFields::STAGE_FIELD] = 'unknown';
                     $post->fields = $fields;
                 }
 
@@ -37,7 +37,8 @@ class ReportsProjectsByStageApiController extends Controller {
         return response()->json([
             'status' => 'ok',
             'code' => Response::HTTP_OK,
-            'data' => MetaFields::guessSameFieldsAndMergeValues($projectStages->toArray()),
+            'data' => MetaFields::guessSameFieldsAndMergeValues($projectStages->toArray())->sortDesc()->forget('unknown'),
+            'chart_title' => 'Project stages',
             'link' => ['self' => route('api.reports.projects_by_stages')],
         ], Response::HTTP_OK
         );

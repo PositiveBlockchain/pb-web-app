@@ -71,7 +71,8 @@
                         callbacks: {
                             label: function (tooltipItem, data) {
                                 let percentage = data['datasets'][0]['data'][tooltipItem['index']] * 100 / _.sum(data['datasets'][0]['data']);
-                                return data['labels'][tooltipItem['index']] + ': ' + _.round(percentage, 2) + '%';
+                                let categoryName = data['labels'][tooltipItem['index']];
+                                return categoryName + ': ' + _.round(percentage, 2) + '%';
                             }
                         }
                     }

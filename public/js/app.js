@@ -1855,6 +1855,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ProjectsAgeBarChartComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ProjectsAgeBarChartComponent */ "./resources/js/components/ProjectsAgeBarChartComponent.vue");
 /* harmony import */ var _components_ProjectsOrganizationTypesBarChartComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ProjectsOrganizationTypesBarChartComponent */ "./resources/js/components/ProjectsOrganizationTypesBarChartComponent.vue");
 /* harmony import */ var _components_ProjectMainCategoriesPieChartComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ProjectMainCategoriesPieChartComponent */ "./resources/js/components/ProjectMainCategoriesPieChartComponent.vue");
+/* harmony import */ var _components_ProjectsStagesHorizontalBarChartComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ProjectsStagesHorizontalBarChartComponent */ "./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue");
 //
 //
 //
@@ -1883,6 +1884,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -1891,6 +1894,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   components: {
+    ProjectsStagesHorizontalBarChartComponent: _components_ProjectsStagesHorizontalBarChartComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
     ProjectMainCategoriesPieChartComponent: _components_ProjectMainCategoriesPieChartComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
     ProjectsOrganizationTypesBarChartComponent: _components_ProjectsOrganizationTypesBarChartComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
     ProjectsAgeBarChartComponent: _components_ProjectsAgeBarChartComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -2044,7 +2048,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _charts_BarChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./charts/BarChart */ "./resources/js/components/charts/BarChart.vue");
-/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2057,10 +2060,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProjectsAgeBarChartComponent",
@@ -2070,13 +2069,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       loaded: false,
-      responseData: null,
-      projectYears: null,
-      yearCounts: null,
+      response: null,
       chartdata: null,
       options: {
         legend: {
           display: false
+        },
+        title: {
+          display: true,
+          text: ''
         }
       }
     };
@@ -2085,11 +2086,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getProjectAgesReport();
   },
   computed: {
+    getOptions: function getOptions() {
+      if (this.loaded) {
+        this.options.title.text = _.upperCase(this.response.chart_title);
+        return this.options;
+      }
+    },
     getChartData: function getChartData() {
-      var values = _.values(this.responseData);
+      var values = _.values(this.response.data);
 
       this.chartdata = {
-        labels: _.keys(this.responseData),
+        labels: _.keys(this.response.data),
         datasets: [{
           label: "",
           data: values,
@@ -2129,7 +2136,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context.sent;
 
                 if (response.data.status === "ok") {
-                  this.responseData = response.data.data;
+                  this.response = response.data;
                   this.loaded = true;
                 }
 
@@ -2253,7 +2260,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             label: function label(tooltipItem, data) {
               var percentage = data['datasets'][0]['data'][tooltipItem['index']] * 100 / _.sum(data['datasets'][0]['data']);
 
-              return data['labels'][tooltipItem['index']] + ': ' + _.round(percentage, 2) + '%';
+              var categoryName = data['labels'][tooltipItem['index']];
+              return categoryName + ': ' + _.round(percentage, 2) + '%';
             }
           }
         }
@@ -2378,9 +2386,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProjectsCountriesPieChartComponent",
@@ -2390,6 +2395,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       loaded: false,
+      response: null,
       chartdata: null,
       taxonomies: null,
       currentTopFilter: 0,
@@ -2398,6 +2404,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cutoutPercentage: 50,
         borderWidth: 0,
         currentCountFilter: 1,
+        title: {
+          display: true,
+          text: ''
+        },
         tooltips: {
           enabled: true,
           bodyFontSize: 30,
@@ -2413,6 +2423,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   computed: {
+    getOptions: function getOptions() {
+      if (this.loaded) {
+        this.options.title.text = _.upperCase(this.response.chart_title);
+        return this.options;
+      }
+    },
     filteredTaxonomies: function filteredTaxonomies() {
       var values = _.map(this.taxonomies, 'count');
 
@@ -2458,22 +2474,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 response = _context.sent;
-                this.taxonomies = response.data.data;
+                this.response = response.data;
+                this.taxonomies = this.response.data;
                 this.loaded = true;
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 console.error(_context.t0);
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 10]]);
       }));
 
       function getProjectLocations() {
@@ -2512,9 +2529,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2525,13 +2539,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       loaded: false,
-      responseData: null,
+      response: null,
       projectYears: null,
       yearCounts: null,
       chartdata: null,
       options: {
         legend: {
           display: false
+        },
+        title: {
+          display: true,
+          text: ''
         }
       }
     };
@@ -2540,11 +2558,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getProjectAgesReport();
   },
   computed: {
+    getOptions: function getOptions() {
+      if (this.loaded) {
+        this.options.title.text = _.upperCase(this.response.chart_title);
+        return this.options;
+      }
+    },
     getChartData: function getChartData() {
-      var values = _.values(this.responseData);
+      var values = _.values(this.response.data);
 
       this.chartdata = {
-        labels: _.keys(this.responseData),
+        labels: _.keys(this.response.data),
         datasets: [{
           label: "",
           data: values,
@@ -2584,7 +2608,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context.sent;
 
                 if (response.data.status === "ok") {
-                  this.responseData = response.data.data;
+                  this.response = response.data;
                   this.loaded = true;
                 }
 
@@ -2615,6 +2639,141 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _charts_BarChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./charts/BarChart */ "./resources/js/components/charts/BarChart.vue");
+/* harmony import */ var _charts_HorizontalBarChart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./charts/HorizontalBarChart */ "./resources/js/components/charts/HorizontalBarChart.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ProjectsStagesHorizontalBarChartComponent",
+  components: {
+    HorizontalBarChart: _charts_HorizontalBarChart__WEBPACK_IMPORTED_MODULE_2__["default"],
+    BarChart: _charts_BarChart__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      loaded: false,
+      response: null,
+      chartdata: null,
+      options: {
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: ''
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.getProjectStagesReport();
+  },
+  computed: {
+    getOptions: function getOptions() {
+      if (this.loaded) {
+        this.options.title.text = _.upperCase(this.response.chart_title);
+        return this.options;
+      }
+    },
+    getChartData: function getChartData() {
+      var values = _.values(this.response.data);
+
+      this.chartdata = {
+        labels: _.keys(this.response.data),
+        datasets: [{
+          label: "",
+          data: values,
+          backgroundColor: this.generateColors(values)
+        }]
+      };
+      return this.chartdata;
+    }
+  },
+  methods: {
+    generateColors: function generateColors(values) {
+      var colors = [];
+
+      for (var i = 0; i < values.length; i++) {
+        var red = Math.floor(Math.random() * 200);
+        var green = Math.floor(Math.random() * 200);
+        var blue = Math.floor(Math.random() * 200);
+        var color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+        colors.push(color);
+      }
+
+      return colors;
+    },
+    getProjectStagesReport: function () {
+      var _getProjectStagesReport = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.loaded = false;
+                _context.prev = 1;
+                _context.next = 4;
+                return axios.get('api/v1/reports/project-stages');
+
+              case 4:
+                response = _context.sent;
+
+                if (response.data.status === "ok") {
+                  this.response = response.data;
+                  this.loaded = true;
+                }
+
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](1);
+                console.error(_context.t0);
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[1, 8]]);
+      }));
+
+      function getProjectStagesReport() {
+        return _getProjectStagesReport.apply(this, arguments);
+      }
+
+      return getProjectStagesReport;
+    }()
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/charts/BarChart.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/charts/BarChart.vue?vue&type=script&lang=js& ***!
@@ -2629,6 +2788,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BarChart",
   "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
+  props: {
+    chartdata: {
+      type: Object,
+      "default": null
+    },
+    options: {
+      type: Object,
+      "default": null
+    }
+  },
+  mounted: function mounted() {
+    this.renderChart(this.chartdata, this.options);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/charts/HorizontalBarChart.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/charts/HorizontalBarChart.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "HorizontalBarChart",
+  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["HorizontalBar"],
   props: {
     chartdata: {
       type: Object,
@@ -58552,38 +58742,40 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      {},
+      { staticClass: "grid grid-cols-2 gap-2" },
       [
         _c("projects-organization-types-bar-chart-component", [
           _vm._v("\n            Projects Organization Types\n        ")
-        ])
+        ]),
+        _vm._v(" "),
+        _c("projects-stages-horizontal-bar-chart-component", [
+          _vm._v("\n            Project Stages\n        ")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {},
+          [
+            _c("projects-countries-pie-chart-component", [
+              _vm._v("\n                Projects by Countries\n            ")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {},
+          [
+            _c("projects-age-bar-chart-component", [
+              _vm._v("\n                Project Foundation Years\n            ")
+            ])
+          ],
+          1
+        )
       ],
       1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "grid grid-cols-2 gap-2" }, [
-      _c(
-        "div",
-        {},
-        [
-          _c("projects-countries-pie-chart-component", [
-            _vm._v("\n                Projects by Countries\n            ")
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {},
-        [
-          _c("projects-age-bar-chart-component", [
-            _vm._v("\n                Project Foundation Years\n            ")
-          ])
-        ],
-        1
-      )
-    ])
+    )
   ])
 }
 var staticRenderFns = []
@@ -58660,16 +58852,9 @@ var render = function() {
       attrs: { id: "chart-project-foundation-years" }
     },
     [
-      _c(
-        "h2",
-        { staticClass: "text-center uppercase mb-5 text-2xl" },
-        [_vm._t("default")],
-        2
-      ),
-      _vm._v(" "),
       _vm.loaded
         ? _c("bar-chart", {
-            attrs: { options: _vm.options, chartdata: _vm.getChartData }
+            attrs: { options: _vm.getOptions, chartdata: _vm.getChartData }
           })
         : _vm._e()
     ],
@@ -58958,15 +59143,8 @@ var render = function() {
       attrs: { id: "chart-project-locations" }
     },
     [
-      _c(
-        "h2",
-        { staticClass: "text-center mb-5 uppercase text-2xl" },
-        [_vm._t("default")],
-        2
-      ),
-      _vm._v(" "),
       _c("pie-chart", {
-        attrs: { chartdata: _vm.filteredTaxonomies, options: _vm.options }
+        attrs: { chartdata: _vm.filteredTaxonomies, options: _vm.getOptions }
       })
     ],
     1
@@ -59001,16 +59179,47 @@ var render = function() {
       attrs: { id: "chart-project-organization-types" }
     },
     [
-      _c(
-        "h2",
-        { staticClass: "text-center uppercase mb-5 text-2xl" },
-        [_vm._t("default")],
-        2
-      ),
-      _vm._v(" "),
       _vm.loaded
         ? _c("bar-chart", {
-            attrs: { options: _vm.options, chartdata: _vm.getChartData }
+            attrs: { options: _vm.getOptions, chartdata: _vm.getChartData }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=template&id=d491ae78&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=template&id=d491ae78&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "p-3 shadow-lg bg-white m-1",
+      attrs: { id: "chart-project-stages" }
+    },
+    [
+      _vm.loaded
+        ? _c("horizontal-bar-chart", {
+            attrs: { options: _vm.getOptions, chartdata: _vm.getChartData }
           })
         : _vm._e()
     ],
@@ -71676,6 +71885,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProjectsStagesHorizontalBarChartComponent_vue_vue_type_template_id_d491ae78_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProjectsStagesHorizontalBarChartComponent.vue?vue&type=template&id=d491ae78&scoped=true& */ "./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=template&id=d491ae78&scoped=true&");
+/* harmony import */ var _ProjectsStagesHorizontalBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProjectsStagesHorizontalBarChartComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProjectsStagesHorizontalBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProjectsStagesHorizontalBarChartComponent_vue_vue_type_template_id_d491ae78_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProjectsStagesHorizontalBarChartComponent_vue_vue_type_template_id_d491ae78_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "d491ae78",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsStagesHorizontalBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProjectsStagesHorizontalBarChartComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsStagesHorizontalBarChartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=template&id=d491ae78&scoped=true&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=template&id=d491ae78&scoped=true& ***!
+  \**************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsStagesHorizontalBarChartComponent_vue_vue_type_template_id_d491ae78_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProjectsStagesHorizontalBarChartComponent.vue?vue&type=template&id=d491ae78&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProjectsStagesHorizontalBarChartComponent.vue?vue&type=template&id=d491ae78&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsStagesHorizontalBarChartComponent_vue_vue_type_template_id_d491ae78_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProjectsStagesHorizontalBarChartComponent_vue_vue_type_template_id_d491ae78_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/charts/BarChart.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/components/charts/BarChart.vue ***!
@@ -71723,6 +72001,56 @@ component.options.__file = "resources/js/components/charts/BarChart.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BarChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/charts/BarChart.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/charts/HorizontalBarChart.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/charts/HorizontalBarChart.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _HorizontalBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HorizontalBarChart.vue?vue&type=script&lang=js& */ "./resources/js/components/charts/HorizontalBarChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _HorizontalBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "18cd27ae",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/charts/HorizontalBarChart.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/charts/HorizontalBarChart.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/charts/HorizontalBarChart.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HorizontalBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HorizontalBarChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/charts/HorizontalBarChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HorizontalBarChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

@@ -1,9 +1,6 @@
 <template>
     <div id="chart-project-locations" class="p-3 shadow-lg bg-white m-1">
-        <h2 class="text-center mb-5 uppercase text-2xl">
-            <slot></slot>
-        </h2>
-        <pie-chart :chartdata="filteredTaxonomies" :options="options"></pie-chart>
+        <pie-chart :chartdata="filteredTaxonomies" :options="getOptions"></pie-chart>
     </div>
 </template>
 
@@ -16,6 +13,7 @@
         data() {
             return {
                 loaded: false,
+                response: null,
                 chartdata: null,
                 taxonomies: null,
                 currentTopFilter: 0,
@@ -24,6 +22,10 @@
                     cutoutPercentage: 50,
                     borderWidth: 0,
                     currentCountFilter: 1,
+                    title: {
+                        display: true,
+                        text: '',
+                    },
                     tooltips: {
                         enabled: true,
                         bodyFontSize: 30,
@@ -38,6 +40,12 @@
             }
         },
         computed: {
+            getOptions: function () {
+                if (this.loaded) {
+                    this.options.title.text = _.upperCase(this.response.chart_title);
+                    return this.options;
+                }
+            },
             filteredTaxonomies: function () {
                 const values = _.map(this.taxonomies, 'count');
                 this.chartdata = {
@@ -71,7 +79,8 @@
                 this.loaded = false;
                 try {
                     const response = await axios.get('api/v1/reports/project-locations');
-                    this.taxonomies = response.data.data;
+                    this.response = response.data;
+                    this.taxonomies = this.response.data;
                     this.loaded = true;
                 } catch (e) {
                     console.error(e);

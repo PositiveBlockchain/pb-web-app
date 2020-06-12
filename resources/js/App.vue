@@ -5,12 +5,13 @@
                 Projects by Categories
             </projects-by-category-pie-chart-component>
         </div>
-        <div class="">
+        <div class="grid grid-cols-2 gap-2">
             <projects-organization-types-bar-chart-component>
                 Projects Organization Types
             </projects-organization-types-bar-chart-component>
-        </div>
-        <div class="grid grid-cols-2 gap-2">
+            <projects-stages-horizontal-bar-chart-component>
+                Project Stages
+            </projects-stages-horizontal-bar-chart-component>
             <div class="">
                 <projects-countries-pie-chart-component>
                     Projects by Countries
@@ -32,10 +33,12 @@
     import ProjectsAgeBarChartComponent from "./components/ProjectsAgeBarChartComponent";
     import ProjectsOrganizationTypesBarChartComponent from "./components/ProjectsOrganizationTypesBarChartComponent";
     import ProjectMainCategoriesPieChartComponent from "./components/ProjectMainCategoriesPieChartComponent";
+    import ProjectsStagesHorizontalBarChartComponent from "./components/ProjectsStagesHorizontalBarChartComponent";
 
     export default {
         name: "App",
         components: {
+            ProjectsStagesHorizontalBarChartComponent,
             ProjectMainCategoriesPieChartComponent,
             ProjectsOrganizationTypesBarChartComponent,
             ProjectsAgeBarChartComponent,

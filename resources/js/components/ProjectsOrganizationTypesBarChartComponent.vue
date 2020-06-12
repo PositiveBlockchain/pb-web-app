@@ -1,9 +1,6 @@
 <template>
     <div id="chart-project-organization-types" class="p-3 shadow-lg bg-white m-1">
-        <h2 class="text-center uppercase mb-5 text-2xl">
-            <slot></slot>
-        </h2>
-        <bar-chart v-if="loaded" :options="options" :chartdata="getChartData"></bar-chart>
+        <bar-chart v-if="loaded" :options="getOptions" :chartdata="getChartData"></bar-chart>
     </div>
 </template>
 
@@ -17,13 +14,17 @@
         data() {
             return {
                 loaded: false,
-                responseData: null,
+                response: null,
                 projectYears: null,
                 yearCounts: null,
                 chartdata: null,
                 options: {
                     legend: {
                         display: false,
+                    },
+                    title: {
+                        display: true,
+                        text: '',
                     }
                 },
             }
@@ -32,10 +33,16 @@
             this.getProjectAgesReport();
         },
         computed: {
+            getOptions: function () {
+                if (this.loaded) {
+                    this.options.title.text = _.upperCase(this.response.chart_title);
+                    return this.options;
+                }
+            },
             getChartData: function () {
-                const values = _.values(this.responseData)
+                const values = _.values(this.response.data)
                 this.chartdata = {
-                    labels: _.keys(this.responseData),
+                    labels: _.keys(this.response.data),
                     datasets: [{
                         label: "",
                         data: values,
@@ -43,7 +50,6 @@
                     }
                     ],
                 };
-
                 return this.chartdata;
             }
         },
@@ -64,7 +70,7 @@
                 try {
                     const response = await axios.get('api/v1/reports/project-organization-types');
                     if (response.data.status === "ok") {
-                        this.responseData = response.data.data;
+                        this.response = response.data;
                         this.loaded = true;
                     }
                 } catch (e) {
