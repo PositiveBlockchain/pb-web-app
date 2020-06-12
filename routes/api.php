@@ -28,5 +28,6 @@ Route::prefix('v1')->group(function () {
     Route::get('reports/project-main-categories', 'ReportsProjectsMainCategoriesApiController')->name('api.reports.projects_by_main_categories');
     Route::get('reports/project-locations', 'ReportsLocationsApiController')->name('api.reports.projects_by_locations');
     Route::get('reports/project-ages', 'ReportsProjectAgesApiController')->name('api.reports.projects_by_ages');
+    Route::get('reports/project-stages', 'ReportsProjectsByStageApiController')->name('api.reports.projects_by_stages');
     Route::get('reports/project-organization-types', 'ReportsProjectOrganizationTypesApiController')->name('api.reports.projects_by_organization_type');
 });
