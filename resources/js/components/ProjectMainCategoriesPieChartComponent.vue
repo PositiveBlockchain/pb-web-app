@@ -1,5 +1,5 @@
 <template>
-    <div id="chart-project-main-categories" class="p-3 shadow-lg bg-white m-1">
+    <div id="chart-project-main-categories" class="">
         <div v-if="loaded" class="chart">
             <div id="filter_category_by_count" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"

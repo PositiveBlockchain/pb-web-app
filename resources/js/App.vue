@@ -1,6 +1,6 @@
 <template>
     <div id="dashboard">
-        <div>
+        <div class="p-3 shadow-lg bg-white m-1">
             <project-categories-pie-charts-component/>
         </div>
         <div class="grid grid-cols-2 gap-2">

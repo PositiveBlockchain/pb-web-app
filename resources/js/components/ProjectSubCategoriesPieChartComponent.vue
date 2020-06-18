@@ -1,5 +1,5 @@
 <template>
-    <div id="chart-project-main-categories" class="p-3 shadow-lg bg-white m-1">
+    <div id="chart-project-main-categories" class="">
         <div v-if="mainCategory">
             <div v-if="loaded" class="chart">
                 <pie-chart :chartdata="filterSubCategoriesByParentCategory" :options="getOptions"></pie-chart>
