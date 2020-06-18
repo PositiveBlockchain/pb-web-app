@@ -1,7 +1,7 @@
 <template>
     <div id="dashboard">
         <div>
-            <projects-by-category-pie-chart-component/>
+            <project-main-categories-pie-chart-component/>
         </div>
         <div class="grid grid-cols-2 gap-2">
             <projects-organization-types-bar-chart-component/>

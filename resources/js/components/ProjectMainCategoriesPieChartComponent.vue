@@ -1,27 +1,35 @@
 <template>
     <div id="chart-project-main-categories" class="p-3 shadow-lg bg-white m-1">
-        <h2 class="text-center uppercase mb-5 text-2xl">
-            <slot></slot>
-        </h2>
-        <pie-chart v-if="loaded" :chartdata="chartdata" :options="options"></pie-chart>
+        <div v-if="loaded" class="chart">
+            <pie-chart v-if="loaded" :chartdata="chartdata" :options="getOptions"></pie-chart>
+        </div>
+        <div v-else class="flex justify-center">
+            <spinner></spinner>
+        </div>
     </div>
 </template>
 
 <script>
     import PieChart from "./charts/PieChart";
+    import Spinner from "./helpers/Spinner";
 
     export default {
         name: "ProjectMainCategoriesPieChartComponent",
-        components: {PieChart},
+        components: {Spinner, PieChart},
         data() {
             return {
                 loaded: false,
                 chartdata: null,
                 categories: null,
+                response: null,
                 options: {
                     responsive: true,
                     cutoutPercentage: 50,
                     borderWidth: 0,
+                    title: {
+                        display: true,
+                        text: '',
+                    },
                     tooltips: {
                         enabled: true,
                         bodyFontSize: 30,
@@ -32,6 +40,14 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        computed: {
+            getOptions: function () {
+                if (this.loaded) {
+                    this.options.title.text = _.upperCase(this.response.chart_title);
+                    return this.options;
                 }
             }
         },
@@ -54,10 +70,11 @@
                 this.loaded = false;
                 try {
                     const response = await axios.get('api/v1/reports/project-main-categories');
+                    this.response = response.data;
                     this.categories = response.data.data;
-                    const values = _.values(this.categories);
+                    const values = _.map(this.categories, 'count');
                     this.chartdata = {
-                        labels: _.keys(this.categories),
+                        labels: _.map(this.categories, 'name'),
                         datasets: [{
                             label: 'Project Main Categories',
                             data: values,

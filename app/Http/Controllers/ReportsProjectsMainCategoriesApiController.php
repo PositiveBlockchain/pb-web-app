@@ -2,36 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ProjectRepository;
+use App\Taxonomy;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 class ReportsProjectsMainCategoriesApiController extends Controller {
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(Request $request)
     {
-        $projectRepo = new ProjectRepository();
-        $mainCategoriesCounts = $projectRepo->getWpListingProjects()
-            ->map(function ($post) {
-                if (!property_exists($post, 'main_category'))
-                {
-                    $post->main_category = 'unknown';
-                }
+        $taxonomies = Taxonomy::all()->map(function ($taxonomy) {
+            $taxonomy->name = Str::replaceFirst("&amp;", "&", $taxonomy->term->name);
+            unset($taxonomy->term);
 
-                return $post;
-            })->groupBy('main_category')
-            ->filter(function ($item, $key) {
-                return $key !== 'Global';
-            })
-            ->sort()
-            ->map->count();
+            return $taxonomy;
+        })->filter(function ($taxonomy) {
+            return $taxonomy->taxonomy === 'listing-category' && $taxonomy->parent === 0;
+        });
 
         return response()->json([
-            'status' => 'ok',
-            'code' => Response::HTTP_OK,
-            'data' => $mainCategoriesCounts,
-            'link' => ['self' => route('api.reports.projects_by_ages')],
-        ], Response::HTTP_OK
+                'status' => 'ok',
+                'code' => Response::HTTP_OK,
+                'data' => $taxonomies->sortByDesc('count')->values(),
+                'chart_title' => 'Project main categories distribution',
+                'links' => ['self' => route('api.reports.projects_by_main_categories')],
+            ]
         );
     }
 }

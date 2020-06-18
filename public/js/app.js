@@ -1913,6 +1913,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _charts_PieChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./charts/PieChart */ "./resources/js/components/charts/PieChart.vue");
+/* harmony import */ var _helpers_Spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/Spinner */ "./resources/js/components/helpers/Spinner.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1928,10 +1929,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProjectMainCategoriesPieChartComponent",
   components: {
+    Spinner: _helpers_Spinner__WEBPACK_IMPORTED_MODULE_2__["default"],
     PieChart: _charts_PieChart__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
@@ -1939,10 +1944,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loaded: false,
       chartdata: null,
       categories: null,
+      response: null,
       options: {
         responsive: true,
         cutoutPercentage: 50,
         borderWidth: 0,
+        title: {
+          display: true,
+          text: ''
+        },
         tooltips: {
           enabled: true,
           bodyFontSize: 30,
@@ -1956,6 +1966,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
     };
+  },
+  computed: {
+    getOptions: function getOptions() {
+      if (this.loaded) {
+        this.options.title.text = _.upperCase(this.response.chart_title);
+        return this.options;
+      }
+    }
   },
   created: function created() {
     this.getProjectMainCategoryReport();
@@ -1988,10 +2006,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 response = _context.sent;
+                this.response = response.data;
                 this.categories = response.data.data;
-                values = _.values(this.categories);
+                values = _.map(this.categories, 'count');
                 this.chartdata = {
-                  labels: _.keys(this.categories),
+                  labels: _.map(this.categories, 'name'),
                   datasets: [{
                     label: 'Project Main Categories',
                     data: values,
@@ -1999,20 +2018,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }]
                 };
                 this.loaded = true;
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](1);
                 console.error(_context.t0);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 11]]);
+        }, _callee, this, [[1, 12]]);
       }));
 
       function getProjectMainCategoryReport() {
@@ -2253,6 +2272,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       taxonomies: null,
       currentCountFilter: 1,
       currentTopFilter: 0,
+      response: null,
       options: {
         responsive: true,
         cutoutPercentage: 50,
@@ -59452,7 +59472,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "dashboard" } }, [
-    _c("div", [_c("projects-by-category-pie-chart-component")], 1),
+    _c("div", [_c("project-main-categories-pie-chart-component")], 1),
     _vm._v(" "),
     _c(
       "div",
@@ -59499,20 +59519,21 @@ var render = function() {
       attrs: { id: "chart-project-main-categories" }
     },
     [
-      _c(
-        "h2",
-        { staticClass: "text-center uppercase mb-5 text-2xl" },
-        [_vm._t("default")],
-        2
-      ),
-      _vm._v(" "),
       _vm.loaded
-        ? _c("pie-chart", {
-            attrs: { chartdata: _vm.chartdata, options: _vm.options }
-          })
-        : _vm._e()
-    ],
-    1
+        ? _c(
+            "div",
+            { staticClass: "chart" },
+            [
+              _vm.loaded
+                ? _c("pie-chart", {
+                    attrs: { chartdata: _vm.chartdata, options: _vm.getOptions }
+                  })
+                : _vm._e()
+            ],
+            1
+          )
+        : _c("div", { staticClass: "flex justify-center" }, [_c("spinner")], 1)
+    ]
   )
 }
 var staticRenderFns = []

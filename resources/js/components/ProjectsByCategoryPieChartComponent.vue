@@ -65,6 +65,7 @@
                 taxonomies: null,
                 currentCountFilter: 1,
                 currentTopFilter: 0,
+                response: null,
                 options: {
                     responsive: true,
                     cutoutPercentage: 50,
