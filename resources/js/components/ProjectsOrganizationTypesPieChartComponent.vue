@@ -26,7 +26,7 @@
                 chartdata: null,
                 options: {
                     legend: {
-                        display: false,
+                        display: true,
                     },
                     title: {
                         display: true,

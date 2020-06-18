@@ -2826,7 +2826,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       chartdata: null,
       options: {
         legend: {
-          display: false
+          display: true
         },
         title: {
           display: true,
