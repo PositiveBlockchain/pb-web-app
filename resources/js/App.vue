@@ -1,7 +1,7 @@
 <template>
     <div id="dashboard">
         <div>
-            <project-main-categories-pie-chart-component/>
+            <project-categories-pie-charts-component/>
         </div>
         <div class="grid grid-cols-2 gap-2">
             <projects-organization-types-bar-chart-component/>
@@ -24,12 +24,13 @@
     import ProjectsOrganizationTypesBarChartComponent from "./components/ProjectsOrganizationTypesBarChartComponent";
     import ProjectMainCategoriesPieChartComponent from "./components/ProjectMainCategoriesPieChartComponent";
     import ProjectsStagesHorizontalBarChartComponent from "./components/ProjectsStagesHorizontalBarChartComponent";
+    import ProjectCategoriesPieChartsComponent from "./components/ProjectCategoriesPieChartsComponent";
 
     export default {
         name: "App",
         components: {
+            ProjectCategoriesPieChartsComponent,
             ProjectsStagesHorizontalBarChartComponent,
-            ProjectMainCategoriesPieChartComponent,
             ProjectsOrganizationTypesBarChartComponent,
             ProjectsAgeBarChartComponent,
             ProjectsCountriesPieChartComponent,

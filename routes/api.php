@@ -24,7 +24,7 @@ Route::prefix('v1')->group(function () {
     Route::get('projects/{id}', 'ProjectsShowApiController')->name('api.projects.show');
 
     // Reports routes
-    Route::get('reports/project-categories', 'ReportsProjectsByCategoryApiController')->name('api.reports.projects_by_categories');
+    Route::get('reports/project-sub-categories', 'ReportsProjectsBySubCategoryApiController')->name('api.reports.projects_by_sub_categories');
     Route::get('reports/project-main-categories', 'ReportsProjectsMainCategoriesApiController')->name('api.reports.projects_by_main_categories');
     Route::get('reports/project-locations', 'ReportsCountriesApiController')->name('api.reports.projects_by_locations');
     Route::get('reports/project-ages', 'ReportsProjectAgesApiController')->name('api.reports.projects_by_ages');

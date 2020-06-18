@@ -144,7 +144,7 @@
             getProjectCategoryReport: async function () {
                 this.loaded = false;
                 try {
-                    const response = await axios.get('api/v1/reports/project-categories');
+                    const response = await axios.get('api/v1/reports/project-mainCategories');
                     this.response = response.data;
                     this.taxonomies = response.data.data;
                     this.loaded = true;

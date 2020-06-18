@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
-class ReportsProjectsByCategoryApiController extends Controller {
+class ReportsProjectsBySubCategoryApiController extends Controller {
 
     /**
      * @param Request $request
@@ -21,15 +21,15 @@ class ReportsProjectsByCategoryApiController extends Controller {
 
             return $taxonomy;
         })->filter(function ($taxonomy) {
-            return $taxonomy->taxonomy === 'listing-category';
+            return $taxonomy->taxonomy === 'listing-category' && $taxonomy->parent != 0;
         });
 
         return response()->json([
                 'status' => 'ok',
                 'code' => Response::HTTP_OK,
                 'data' => $taxonomies->sortByDesc('count')->values(),
-                'chart_title' => 'Project categories distribution',
-                'links' => ['self' => route('api.reports.projects_by_categories')],
+                'chart_title' => 'Project sub categories',
+                'links' => ['self' => route('api.reports.projects_by_sub_categories')],
             ]
         );
     }

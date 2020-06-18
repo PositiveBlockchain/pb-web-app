@@ -1,7 +1,29 @@
 <template>
     <div id="chart-project-main-categories" class="p-3 shadow-lg bg-white m-1">
         <div v-if="loaded" class="chart">
-            <pie-chart v-if="loaded" :chartdata="chartdata" :options="getOptions"></pie-chart>
+            <div id="filter_category_by_count" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                       for="category-count-filter">
+                    Show sub categories from
+                </label>
+                <div class="relative">
+                    <select id="category-count-filter" v-model="selectedCategory"
+                            v-on:change="onChangeLoadSubCategories"
+                            class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="not_selected" selected>Select your category</option>
+                        <option v-for="category in mainCategories"
+                                v-bind:value="category">{{category.name}}
+                        </option>
+                    </select>
+                    <div
+                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <pie-chart :chartdata="chartdata" :options="getOptions"></pie-chart>
         </div>
         <div v-else class="flex justify-center">
             <spinner></spinner>
@@ -20,8 +42,9 @@
             return {
                 loaded: false,
                 chartdata: null,
-                categories: null,
+                mainCategories: null,
                 response: null,
+                selectedCategory: 'not_selected',
                 options: {
                     responsive: true,
                     cutoutPercentage: 50,
@@ -55,6 +78,9 @@
             this.getProjectMainCategoryReport();
         },
         methods: {
+            onChangeLoadSubCategories() {
+                eventHub.$emit('on-change-main-category', this.selectedCategory);
+            },
             generatePieColors(values) {
                 const colors = [];
                 for (let i = 0; i < values.length; i++) {
@@ -71,10 +97,10 @@
                 try {
                     const response = await axios.get('api/v1/reports/project-main-categories');
                     this.response = response.data;
-                    this.categories = response.data.data;
-                    const values = _.map(this.categories, 'count');
+                    this.mainCategories = response.data.data;
+                    const values = _.map(this.mainCategories, 'count');
                     this.chartdata = {
-                        labels: _.map(this.categories, 'name'),
+                        labels: _.map(this.mainCategories, 'name'),
                         datasets: [{
                             label: 'Project Main Categories',
                             data: values,

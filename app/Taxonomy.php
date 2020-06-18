@@ -8,5 +8,5 @@ class Taxonomy extends CorcelTaxonomy {
 
     protected $connection = 'wordpress';
 
-    protected $hidden = ['term_id', 'description', 'parent', 'taxonomy'];
+    protected $hidden = ['term_id', 'description', 'taxonomy'];
 }

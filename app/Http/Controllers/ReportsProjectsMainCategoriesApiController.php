@@ -28,7 +28,7 @@ class ReportsProjectsMainCategoriesApiController extends Controller {
                 'status' => 'ok',
                 'code' => Response::HTTP_OK,
                 'data' => $taxonomies->sortByDesc('count')->values(),
-                'chart_title' => 'Project main categories distribution',
+                'chart_title' => 'Project main mainCategories distribution',
                 'links' => ['self' => route('api.reports.projects_by_main_categories')],
             ]
         );
