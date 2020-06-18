@@ -22,29 +22,26 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body class="bg-gray-100 h-screen antialiased leading-none">
+<body class="bg-gray-800 h-screen antialiased leading-none">
 <div class="flex flex-col">
-    <nav class="bg-gray-500 shadow mb-8 py-6">
+    <nav class="bg-gray-900 shadow mb-8 py-6">
         <div class="container mx-auto px-6 md:px-0">
             <div class="flex items-center justify-center">
                 <div class="mr-6">
                     <a href="http://positiveblockchain.local" class="text-lg font-semibold text-gray-100 no-underline">
-                        <img class="inline-block" width="50" src="{{asset('pb-sdg-logo.png')}}" alt="Positive Blockchain SDG Logo"> Dashboard
+                        <img class="inline-block" width="50" src="{{asset('pb-sdg-logo.png')}}" alt="Positive Blockchain SDG Logo"> Impact Dashboard
                     </a>
-                </div>
-                <div class="flex-1 text-right">
-                    <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="#">Home</a>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="min-h-screen flex items-center justify-center px-4">
+    <div class="min-h-screen flex items-center justify-center">
         <div class="flex flex-col justify-around h-full">
             <div id="app">
-                <h1 class="text-gray-600 text-center font-light tracking-wider md:text-5xl lg:text-5xl sm:text-5xl mb-6">
+                <h1 class="text-gray-400 text-center font-light tracking-wider md:text-5xl lg:text-5xl sm:text-5xl mb-6">
                     Blockchain Social Impact <br> Projects   Dashboard
                 </h1>
-                <p class="text-center mb-5"><small>This is a development version. Things might break.</small></p>
+                <p class="text-center mb-5 text-gray-400"><small>This is a development version. Things might break.</small></p>
                 <App></App>
                 <footer class="mt-5">
                     <ul class="list-reset">
