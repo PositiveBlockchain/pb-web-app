@@ -4,7 +4,7 @@
             <project-categories-pie-charts-component/>
         </div>
         <div class="grid grid-cols-2 gap-2">
-            <projects-organization-types-bar-chart-component/>
+            <projects-organization-types-pie-chart-component/>
             <projects-stages-horizontal-bar-chart-component/>
             <div class="">
                 <projects-countries-pie-chart-component/>
@@ -21,8 +21,7 @@
     import ProjectsByCategoryPieChartComponent from "./components/ProjectsByCategoryPieChartComponent";
     import ProjectsCountriesPieChartComponent from "./components/ProjectsCountriesPieChartComponent";
     import ProjectsAgeBarChartComponent from "./components/ProjectsAgeBarChartComponent";
-    import ProjectsOrganizationTypesBarChartComponent from "./components/ProjectsOrganizationTypesBarChartComponent";
-    import ProjectMainCategoriesPieChartComponent from "./components/ProjectMainCategoriesPieChartComponent";
+    import ProjectsOrganizationTypesPieChartComponent from "./components/ProjectsOrganizationTypesPieChartComponent";
     import ProjectsStagesHorizontalBarChartComponent from "./components/ProjectsStagesHorizontalBarChartComponent";
     import ProjectCategoriesPieChartsComponent from "./components/ProjectCategoriesPieChartsComponent";
 
@@ -31,7 +30,7 @@
         components: {
             ProjectCategoriesPieChartsComponent,
             ProjectsStagesHorizontalBarChartComponent,
-            ProjectsOrganizationTypesBarChartComponent,
+            ProjectsOrganizationTypesPieChartComponent,
             ProjectsAgeBarChartComponent,
             ProjectsCountriesPieChartComponent,
             ProjectsByCategoryPieChartComponent

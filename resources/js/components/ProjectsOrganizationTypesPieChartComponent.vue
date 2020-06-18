@@ -1,7 +1,7 @@
 <template>
     <div id="chart-project-organization-types" class="p-3 shadow-lg bg-white m-1">
         <div v-if="loaded" class="chart">
-            <bar-chart :options="getOptions" :chartdata="getChartData"></bar-chart>
+            <pie-chart :options="getOptions" :chartdata="getChartData"></pie-chart>
             <small class="mt-3 block">Projects with unknown types aren't included</small>
         </div>
         <div v-else class="flex justify-center">
@@ -11,12 +11,12 @@
 </template>
 
 <script>
-    import BarChart from "./charts/BarChart";
+    import PieChart from "./charts/PieChart";
     import Spinner from "./helpers/Spinner";
 
     export default {
-        name: "ProjectsOrganizationTypesBarChartComponent",
-        components: {Spinner, BarChart},
+        name: "ProjectsOrganizationTypesPieChartComponent",
+        components: {Spinner, PieChart},
         data() {
             return {
                 loaded: false,
@@ -31,6 +31,16 @@
                     title: {
                         display: true,
                         text: '',
+                    },
+                    tooltips: {
+                        enabled: true,
+                        bodyFontSize: 30,
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                let percentage = data['datasets'][0]['data'][tooltipItem['index']] * 100 / _.sum(data['datasets'][0]['data']);
+                                return data['labels'][tooltipItem['index']] + ': ' + _.round(percentage, 2) + '%';
+                            }
+                        }
                     }
                 },
             }
