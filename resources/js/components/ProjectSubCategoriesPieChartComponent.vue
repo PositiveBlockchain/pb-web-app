@@ -62,7 +62,8 @@
                     filteredSubCategories = _.filter(this.subCategories, ['parent', this.mainCategory.term_taxonomy_id]);
                 }
                 const values = _.map(filteredSubCategories, 'count');
-                this.options.title.text = this.options.title.text + ' ' + this.mainCategory.name;
+                const newTitle = 'Project sub categories for' + this.mainCategory.name;
+                this.options.title.text = _.upperCase(newTitle);
                 this.chartdata = {
                     labels: _.map(filteredSubCategories, 'name'),
                     datasets: [{

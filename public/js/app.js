@@ -2199,7 +2199,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       var values = _.map(filteredSubCategories, 'count');
 
-      this.options.title.text = this.options.title.text + ' ' + this.mainCategory.name;
+      var newTitle = 'Project sub categories for' + this.mainCategory.name;
+      this.options.title.text = _.upperCase(newTitle);
       this.chartdata = {
         labels: _.map(filteredSubCategories, 'name'),
         datasets: [{
