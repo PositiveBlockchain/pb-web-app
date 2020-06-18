@@ -59724,7 +59724,9 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "grid grid-cols-2 gap-2" },
+      {
+        staticClass: "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2"
+      },
       [
         _c("projects-organization-types-pie-chart-component"),
         _vm._v(" "),
@@ -59762,7 +59764,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "grid grid-cols-2 gap-2" },
+    { staticClass: "grid sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-2" },
     [
       _c("project-main-categories-pie-chart-component"),
       _vm._v(" "),

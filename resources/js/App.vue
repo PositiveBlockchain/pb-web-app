@@ -3,7 +3,7 @@
         <div class="p-3 shadow-lg bg-white m-1">
             <project-categories-pie-charts-component/>
         </div>
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
             <projects-organization-types-pie-chart-component/>
             <projects-stages-horizontal-bar-chart-component/>
             <div class="">
