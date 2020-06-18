@@ -2163,7 +2163,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       response: null,
       options: {
         responsive: true,
-        cutoutPercentage: 50,
         borderWidth: 0,
         title: {
           display: true,
