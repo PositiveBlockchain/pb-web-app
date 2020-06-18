@@ -59717,7 +59717,7 @@ var render = function() {
   return _c("div", { attrs: { id: "dashboard" } }, [
     _c(
       "div",
-      { staticClass: "p-3 shadow-lg bg-white m-1" },
+      { staticClass: "p-3 shadow-lg bg-white m-1 mb-2" },
       [_c("project-categories-pie-charts-component")],
       1
     ),
@@ -59968,10 +59968,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "text-2xl" }, [
+    return _c("h3", { staticClass: "text-lg uppercase mt-4" }, [
       _vm._v("Select a main category to "),
       _c("br"),
-      _vm._v(" display the sub categories.")
+      _vm._v(" display the sub categories")
     ])
   }
 ]

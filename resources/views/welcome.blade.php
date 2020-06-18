@@ -38,49 +38,57 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="flex flex-col justify-around h-full">
             <div id="app">
-                <h1 class="text-gray-400 text-center font-light tracking-wider md:text-5xl lg:text-5xl sm:text-5xl mb-6">
+                <h1 class="text-gray-400 text-center font-light tracking-wider md:text-4xl lg:text-4xl sm:text-4xl mb-6">
                     Blockchain Social Impact <br> Projects   Dashboard
                 </h1>
                 <p class="text-center mb-5 text-gray-400"><small>This is a development version. Things might break.</small></p>
                 <App></App>
                 <footer class="mt-5">
-                    <ul class="list-reset">
-                        <li class="inline pr-8">
-                            <a href="https://positiveblockchain.io"
-                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
-                               title="Documentation">PositiveBlockchain.io</a>
-                        </li>
-                        <li class="inline pr-8">
-                            <a href="https://github.com/PositiveBlockchain/pb-web-app"
-                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
-                               title="Laracasts">Github</a>
-                        </li>
-                        <li class="inline pr-8">
-                            <a href="https://positiveblockchain.io/about"
-                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
-                               title="News">About PB</a>
-                        </li>
-                        <li class="inline pr-8">
-                            <a href="https://twitter.com/PositiveBlock"
-                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
-                               title="Nova">Twitter</a>
-                        </li>
-                        <li class="inline pr-8">
-                            <a href="https://www.youtube.com/channel/UCfUUntxXsz0k1N1oCb7w1ZA"
-                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
-                               title="Forge">YouTube</a>
-                        </li>
-                        <li class="inline pr-8">
-                            <a href="https://www.linkedin.com/company/positiveblockchain-io"
-                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
-                               title="Vapor">LinkedIn</a>
-                        </li>
-                        <li class="inline pr-8">
-                            <a href="https://chainist.de/"
-                               class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase"
-                               title="GitHub">Hosted and co-developed by chainist.de</a>
-                        </li>
-                    </ul>
+                    <nav class="bg-gray-900 shadow mb-8 py-6 px-4">
+                        <div class="container mx-auto px-6 md:px-0">
+                            <div class="flex items-center justify-center">
+                                <ul class="list-reset">
+                                    <li class="inline pr-8">
+                                        <a href="https://positiveblockchain.io"
+                                           class="no-underline hover:underline text-sm font-normal text-gray-400 uppercase"
+                                           title="Documentation">PositiveBlockchain.io</a>
+                                    </li>
+                                    <li class="inline pr-8">
+                                        <a href="https://github.com/PositiveBlockchain/pb-web-app"
+                                           class="no-underline hover:underline text-sm font-normal text-gray-400 uppercase"
+                                           title="Github project">Github</a>
+                                    </li>
+                                    <li class="inline pr-8">
+                                        <a href="https://positiveblockchain.io/about"
+                                           class="no-underline hover:underline text-sm font-normal text-gray-400 uppercase"
+                                           title="News">About PB</a>
+                                    </li>
+                                    <li class="inline pr-8">
+                                        <a href="https://twitter.com/PositiveBlock"
+                                           class="no-underline hover:underline text-sm font-normal text-gray-400 uppercase"
+                                           title="Nova">Twitter</a>
+                                    </li>
+                                    <li class="inline pr-8">
+                                        <a href="https://www.youtube.com/channel/UCfUUntxXsz0k1N1oCb7w1ZA"
+                                           class="no-underline hover:underline text-sm font-normal text-gray-400 uppercase"
+                                           title="PositiveBlockchain YouTube">YouTube</a>
+                                    </li>
+                                    <li class="inline pr-8">
+                                        <a href="https://www.linkedin.com/company/positiveblockchain-io"
+                                           class="no-underline hover:underline text-sm font-normal text-gray-400 uppercase"
+                                           title="PositiveBlockchain LinkedIn">LinkedIn</a>
+                                    </li>
+                                    <li class="inline pr-8">
+                                        <a href="https://chainist.de/"
+                                           class="no-underline hover:underline text-sm font-normal text-gray-400 uppercase"
+                                           title="Chainist.de Website">Hosted and co-developed by chainist.de</a>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
                 </footer>
 
             </div>

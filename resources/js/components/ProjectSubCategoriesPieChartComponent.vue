@@ -9,7 +9,7 @@
             </div>
         </div>
         <div v-else class="flex justify-center">
-            <h3 class="text-2xl">Select a main category to <br> display the sub categories.</h3>
+            <h3 class="text-lg uppercase mt-4">Select a main category to <br> display the sub categories</h3>
         </div>
     </div>
 </template>
