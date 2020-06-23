@@ -30,6 +30,14 @@ class ProjectRepository {
     }
 
     /**
+     * @return Collection
+     */
+    public function getWpListingActiveProjects(): Collection
+    {
+        return Post::active()->get();
+    }
+
+    /**
      * Filter the options field
      * and clean up the attributes
      *

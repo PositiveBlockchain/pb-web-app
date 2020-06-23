@@ -59,9 +59,9 @@ class MetaFields {
                 $post->fields = [$value];
             }
         }
-        if ($deserialzedValues instanceof PostMeta)
+        if ($deserialzedValues instanceof PostMeta && is_array($deserialzedValues))
         {
-            $post->fields = array_merge($deserialzedValues->value, $value);
+            $post->fields = array_merge($deserialzedValues->value, $post->fields);
         }
 
         $post->links = ['self' => route('api.projects.show', $post->ID)];

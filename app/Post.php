@@ -4,10 +4,21 @@ namespace App;
 
 use Corcel\Model\Option;
 use Corcel\Model\Post as CorcelPost;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends CorcelPost {
 
     protected $connection = 'wordpress';
+
+    protected $dates = [
+        'post_date',
+        'post_modified',
+    ];
+
+    protected $casts = [
+        'post_date' => 'datetime:d-m-Y',
+        'post_modified' => 'datetime:d-m-Y',
+    ];
 
     protected $hidden = [
         'type',
@@ -35,10 +46,8 @@ class Post extends CorcelPost {
         'ping_status',
         'pinged',
         'post_content_filtered',
-        'post_date',
         'post_date_gmt',
         'post_parent',
-        'post_modified',
         'post_modified_gmt',
         'image',
         'status',
@@ -60,6 +69,15 @@ class Post extends CorcelPost {
     public function getPermalinkAttribute()
     {
         return Option::get('siteurl') . '/database/' . $this->slug . '/';
+    }
+
+    /**
+     * @param $query Builder
+     * @return Builder
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->whereRaw('post_date < post_modified');
     }
 
 }
