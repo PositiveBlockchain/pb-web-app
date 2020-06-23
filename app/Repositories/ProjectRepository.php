@@ -38,6 +38,15 @@ class ProjectRepository {
     }
 
     /**
+     * @param int $limit
+     * @return Collection
+     */
+    public function getWpListingMostActiveProjects(int $limit): Collection
+    {
+        return Post::mostactive($limit)->get();
+    }
+
+    /**
      * Filter the options field
      * and clean up the attributes
      *

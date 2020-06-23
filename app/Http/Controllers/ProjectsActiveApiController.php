@@ -19,10 +19,11 @@ class ProjectsActiveApiController extends Controller {
     public function __invoke(Request $request)
     {
         $projectRepo = new ProjectRepository();
-        $posts = $projectRepo->getWpListingActiveProjects();
+        $posts = $projectRepo->getWpListingMostActiveProjects(50);
 
         return response()->json([
             'status' => 'ok',
+            'count' => $posts->count(),
             'code' => Response::HTTP_OK,
             'data' => $projectRepo->filterMetaFieldsWith(MetaFields::LP_OPTIONS_FIELD, $posts),
             'link' => ['self' => route('api.projects.active')],

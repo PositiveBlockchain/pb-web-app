@@ -77,7 +77,17 @@ class Post extends CorcelPost {
      */
     public function scopeActive(Builder $query): Builder
     {
-        return $query->whereRaw('post_date < post_modified');
+        return $query->whereRaw('post_date < post_modified AND post_type = "listing"');
+    }
+
+    /**
+     * @param Builder $query
+     * @param int $limit
+     * @return Builder
+     */
+    public function scopeMostactive(Builder $query, int $limit): Builder
+    {
+        return $query->whereRaw('post_date < post_modified AND post_type = "listing" order by post_modified desc limit ' . $limit);
     }
 
 }
