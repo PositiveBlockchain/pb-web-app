@@ -5,6 +5,7 @@ namespace App\Helpers;
 
 
 use App\Post;
+use Corcel\Model\Meta\PostMeta;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -15,6 +16,8 @@ class MetaFields {
     const CREATION_YEAR_FIELD = 'creation_year';
     const ORGANIZATION_TYPE_FIELD = 'organization_type';
     const STAGE_FIELD = 'stage';
+    const META_KEY_FIELD = 'meta_key';
+    const LP_META_OPTIONS = 'lp_listingpro_options';
 
     /**
      * @param Post $post
@@ -36,6 +39,10 @@ class MetaFields {
     public static function appendMetaFields($listingMetaValues, Post $post): Post
     {
         $fieldValues = Arr::first($listingMetaValues);
+        $deserialzedValues = $post->meta
+            ->where(MetaFields::META_KEY_FIELD, MetaFields::LP_META_OPTIONS)
+            ->first();
+
         if (is_null($fieldValues))
         {
             $post->fields = [];
@@ -51,6 +58,10 @@ class MetaFields {
             {
                 $post->fields = [$value];
             }
+        }
+        if ($deserialzedValues instanceof PostMeta)
+        {
+            $post->fields = array_merge($deserialzedValues->value, $value);
         }
 
         $post->links = ['self' => route('api.projects.show', $post->ID)];

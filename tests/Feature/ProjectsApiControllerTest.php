@@ -18,7 +18,7 @@ class ProjectsApiControllerTest extends TestCase {
     public function testToCallProjectsShowApiEndpoint()
     {
         $response = $this->get(route('api.projects.show', 62));
-        $structure = ['status', 'code', 'data', 'endpoint'];
+        $structure = ['status', 'code', 'data', 'links'];
         $response->assertOk()
             ->assertJsonStructure($structure);
     }

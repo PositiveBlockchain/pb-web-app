@@ -53,7 +53,6 @@ class ProjectRepository {
             if ($post->meta->count() > 0)
             {
                 $listingMetaValues = MetaFields::filterListingMetaFields($post, $filter);
-
                 $post = MetaFields::appendMetaFields($listingMetaValues, $post);
 
                 //remove all default meta data
