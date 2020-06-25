@@ -11,7 +11,7 @@
                 </div>
             @endif
             <div class="font-semibold text-gray-700 py-3 px-6 mb-0 text-center">
-                List of the recently added or updated projects
+                List of 50 recently added or updated projects
             </div>
 
             <div class="w-full p-6">
