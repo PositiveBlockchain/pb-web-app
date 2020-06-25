@@ -3256,7 +3256,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProjectsListComponent",
   data: function data() {
@@ -3269,22 +3268,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getMostActiveProjects();
   },
   methods: {
-    isEmpty: function isEmpty(keyword) {
-      return !_.isEmpty(keyword);
+    isEmpty: function isEmpty(string) {
+      return !_.isEmpty(string);
     },
     getAbstract: function getAbstract(content) {
-      var text = '';
-
-      if (_.startsWith(content, '<')) {
+      if (_.includes(content, '<')) {
         var htmlContent = content;
+        console.log(content);
         var wrapper = document.createElement("div");
         wrapper.innerHTML = htmlContent;
-        text = wrapper.textContent || wrapper.innerText || "";
-      } else {
-        text = content;
+        var text = wrapper.textContent || wrapper.innerText || "";
+        return _.truncate(text, {
+          length: 150
+        });
       }
 
-      return _.truncate(text, {
+      return _.truncate(content, {
         length: 150
       });
     },
@@ -60621,28 +60620,22 @@ var render = function() {
               staticClass: "max-w-sm rounded overflow-hidden relative shadow-lg"
             },
             [
-              _c("div", { staticClass: "px-6 py-4 mb-16" }, [
+              _c("div", { staticClass: "px-6 py-4 mb-24" }, [
                 _c("div", { staticClass: "font-bold text-xl mb-2 mt-2" }, [
                   _vm._v(_vm._s(project.title))
                 ]),
                 _vm._v(" "),
-                project.fields.short_description !== ""
+                _vm.isEmpty(project.fields.short_description)
                   ? _c("p", { staticClass: "text-gray-700 text-base" }, [
                       _vm._v(
                         "\n                " +
-                          _vm._s(project.fields.short_description) +
+                          _vm._s(
+                            _vm.getAbstract(project.fields.short_description)
+                          ) +
                           "\n            "
                       )
                     ])
-                  : project.content !== ""
-                  ? _c("p", { staticClass: "text-gray-700 text-base" }, [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(_vm.getAbstract(project.content)) +
-                          "\n            "
-                      )
-                    ])
-                  : _c("p", [
+                  : _c("p", { staticClass: "text-gray-700 text-base" }, [
                       _vm._v(
                         "\n                " +
                           _vm._s(_vm.getAbstract(project.content)) +
@@ -60658,13 +60651,13 @@ var render = function() {
                   _c(
                     "p",
                     { staticClass: "text-sm text-gray-600 flex items-center" },
-                    [_vm._v("Created on " + _vm._s(project.post_date))]
+                    [_vm._v("Created: " + _vm._s(project.post_date))]
                   ),
                   _vm._v(" "),
                   _c(
                     "p",
                     { staticClass: "text-sm text-gray-600 flex items-center" },
-                    [_vm._v("Updated on " + _vm._s(project.post_modified))]
+                    [_vm._v("Updated: " + _vm._s(project.post_modified))]
                   ),
                   _vm._v(" "),
                   _c(
