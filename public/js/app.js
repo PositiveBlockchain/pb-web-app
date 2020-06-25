@@ -60621,9 +60621,13 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "px-6 py-4 mb-24" }, [
-                _c("div", { staticClass: "font-bold text-xl mb-2 mt-2" }, [
-                  _vm._v(_vm._s(project.title))
-                ]),
+                _c(
+                  "div",
+                  {
+                    staticClass: "font-bold text-xl mb-2 mt-2 short-description"
+                  },
+                  [_vm._v(_vm._s(project.title))]
+                ),
                 _vm._v(" "),
                 _vm.isEmpty(project.fields.short_description)
                   ? _c("p", { staticClass: "text-gray-700 text-base" }, [
@@ -60635,13 +60639,17 @@ var render = function() {
                           "\n            "
                       )
                     ])
-                  : _c("p", { staticClass: "text-gray-700 text-base" }, [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(_vm.getAbstract(project.content)) +
-                          "\n            "
-                      )
-                    ])
+                  : _c(
+                      "p",
+                      { staticClass: "text-gray-700 text-base content" },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.getAbstract(project.content)) +
+                            "\n            "
+                        )
+                      ]
+                    )
               ]),
               _vm._v(" "),
               _c(

@@ -16,8 +16,8 @@ class Post extends CorcelPost {
     ];
 
     protected $casts = [
-        'post_date' => 'datetime:d-m-Y',
-        'post_modified' => 'datetime:d-m-Y',
+        'post_date' => 'datetime:d. M  Y',
+        'post_modified' => 'datetime:d. M  Y',
     ];
 
     protected $hidden = [
@@ -87,7 +87,7 @@ class Post extends CorcelPost {
      */
     public function scopeMostActive(Builder $query, int $limit): Builder
     {
-        return $query->whereRaw('post_date < post_modified AND post_type = "listing" order by post_modified desc limit ' . $limit);
+        return $query->whereRaw('post_date < post_modified AND post_type = "listing" AND post_status = "publish" order by post_modified desc limit ' . $limit);
     }
 
 }

@@ -23,4 +23,13 @@ class ProjectsApiControllerTest extends TestCase {
             ->assertJsonStructure($structure);
     }
 
+    public function testToCallMostActiveProjectsApiEndpoint()
+    {
+        $response = $this->get(route('api.projects.active'));
+        $structure = ['status', 'code', 'data', 'links'];
+        $response->assertOk()
+            ->assertJsonStructure($structure)
+        ->assertDontSeeText('inactive***');
+    }
+
 }

@@ -27,7 +27,7 @@ class ProjectsIndexApiController extends Controller {
             'status' => 'ok',
             'code' => Response::HTTP_OK,
             'data' => $projectRepo->filterMetaFieldsWith(MetaFields::LP_OPTIONS_FIELD, $posts),
-            'link' => ['self' => route('api.projects.index')],
+            'links' => ['self' => route('api.projects.index')],
         ], Response::HTTP_OK
         );
     }

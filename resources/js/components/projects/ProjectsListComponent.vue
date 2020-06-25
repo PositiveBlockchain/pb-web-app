@@ -2,11 +2,11 @@
     <div class="projects-list grid grid-cols-3 gap-4">
         <div v-if="projects" v-for="project in projects" class="max-w-sm rounded overflow-hidden relative shadow-lg">
             <div class="px-6 py-4 mb-24">
-                <div class="font-bold text-xl mb-2 mt-2">{{project.title}}</div>
+                <div class="font-bold text-xl mb-2 mt-2 short-description">{{project.title}}</div>
                 <p v-if="isEmpty(project.fields.short_description)" class="text-gray-700 text-base">
                     {{getAbstract(project.fields.short_description)}}
                 </p>
-                <p v-else class="text-gray-700 text-base">
+                <p v-else class="text-gray-700 text-base content">
                     {{getAbstract(project.content)}}
                 </p>
             </div>
