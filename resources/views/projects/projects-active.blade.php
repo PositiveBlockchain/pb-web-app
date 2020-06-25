@@ -10,16 +10,12 @@
                     {{ session('status') }}
                 </div>
             @endif
+            <div class="font-semibold text-gray-700 py-3 px-6 mb-0 text-center">
+                List of the recently added or updated projects
+            </div>
 
-            <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
-
-                <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
-                    Recently added or updated projects
-                </div>
-
-                <div class="w-full p-6">
-                    <projects-list></projects-list>
-                </div>
+            <div class="w-full p-6">
+                <projects-list></projects-list>
             </div>
         </div>
     </div>
