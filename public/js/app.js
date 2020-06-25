@@ -3227,6 +3227,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_Spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/Spinner */ "./resources/js/components/helpers/Spinner.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3256,11 +3257,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProjectsListComponent",
+  components: {
+    Spinner: _helpers_Spinner__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       projects: [],
+      loaded: false,
       response: null
     };
   },
@@ -3297,32 +3308,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
+                this.loaded = false;
+                _context.prev = 1;
+                _context.next = 4;
                 return axios.get('/api/v1/projects-active');
 
-              case 3:
+              case 4:
                 response = _context.sent;
 
                 if (response.data.status === 'ok') {
                   this.response = response.data;
                   this.projects = response.data.data;
+                  this.loaded = true;
                 }
 
-                _context.next = 10;
+                _context.next = 11;
                 break;
 
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](1);
                 console.error(_context.t0);
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 7]]);
+        }, _callee, this, [[1, 8]]);
       }));
 
       function getMostActiveProjects() {
@@ -60609,82 +60622,90 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "projects-list grid grid-cols-3 gap-4" },
-    _vm._l(_vm.projects, function(project) {
-      return _vm.projects
-        ? _c(
-            "div",
-            {
-              staticClass: "max-w-sm rounded overflow-hidden relative shadow-lg"
-            },
-            [
-              _c("div", { staticClass: "px-6 py-4 mb-24" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "font-bold text-xl mb-2 mt-2 short-description"
-                  },
-                  [_vm._v(_vm._s(project.title))]
-                ),
-                _vm._v(" "),
-                _vm.isEmpty(project.fields.short_description)
-                  ? _c("p", { staticClass: "text-gray-700 text-base" }, [
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(
-                            _vm.getAbstract(project.fields.short_description)
-                          ) +
-                          "\n            "
-                      )
-                    ])
-                  : _c(
-                      "p",
-                      { staticClass: "text-gray-700 text-base content" },
-                      [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(_vm.getAbstract(project.content)) +
-                            "\n            "
-                        )
-                      ]
-                    )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "px-6 py-4 absolute inset-x-0 bottom-0" },
-                [
+  return _c("div", [
+    _vm.loaded
+      ? _c(
+          "div",
+          { staticClass: "project-list grid grid-cols-3 gap-4" },
+          _vm._l(_vm.projects, function(project) {
+            return _c(
+              "div",
+              {
+                staticClass:
+                  "project-list-item max-w-sm rounded overflow-hidden relative shadow-lg"
+              },
+              [
+                _c("div", { staticClass: "px-6 py-4 mb-24" }, [
                   _c(
-                    "p",
-                    { staticClass: "text-sm text-gray-600 flex items-center" },
-                    [_vm._v("Created: " + _vm._s(project.post_date))]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    { staticClass: "text-sm text-gray-600 flex items-center" },
-                    [_vm._v("Updated: " + _vm._s(project.post_modified))]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
+                    "div",
                     {
                       staticClass:
-                        "float-right text-green-500 border rounded p-2 hover:text-green-800 border-green-500",
-                      attrs: { href: project.permalink, target: "_blank" }
+                        "font-bold text-xl mb-2 mt-2 short-description"
                     },
-                    [_vm._v("View")]
-                  )
-                ]
-              )
-            ]
-          )
-        : _vm._e()
-    }),
-    0
-  )
+                    [_vm._v(_vm._s(project.title))]
+                  ),
+                  _vm._v(" "),
+                  _vm.isEmpty(project.fields.short_description)
+                    ? _c("p", { staticClass: "text-gray-700 text-base" }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(
+                              _vm.getAbstract(project.fields.short_description)
+                            ) +
+                            "\n                "
+                        )
+                      ])
+                    : _c(
+                        "p",
+                        { staticClass: "text-gray-700 text-base content" },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(_vm.getAbstract(project.content)) +
+                              "\n                "
+                          )
+                        ]
+                      )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "px-6 py-4 absolute inset-x-0 bottom-0" },
+                  [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-sm text-gray-600 flex items-center"
+                      },
+                      [_vm._v("Created: " + _vm._s(project.post_date))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-sm text-gray-600 flex items-center"
+                      },
+                      [_vm._v("Updated: " + _vm._s(project.post_modified))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "float-right text-green-500 border rounded p-2 hover:text-green-800 border-green-500",
+                        attrs: { href: project.permalink, target: "_blank" }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ]
+                )
+              ]
+            )
+          }),
+          0
+        )
+      : _c("div", { staticClass: "flex justify-center" }, [_c("spinner")], 1)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
