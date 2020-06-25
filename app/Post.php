@@ -85,7 +85,7 @@ class Post extends CorcelPost {
      * @param int $limit
      * @return Builder
      */
-    public function scopeMostactive(Builder $query, int $limit): Builder
+    public function scopeMostActive(Builder $query, int $limit): Builder
     {
         return $query->whereRaw('post_date < post_modified AND post_type = "listing" order by post_modified desc limit ' . $limit);
     }

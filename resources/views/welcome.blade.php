@@ -24,17 +24,7 @@
 </head>
 <body class="bg-gray-800 h-screen antialiased leading-none">
 <div class="flex flex-col">
-    <nav class="bg-gray-900 shadow mb-8 py-6">
-        <div class="container mx-auto px-6 md:px-0">
-            <div class="flex items-center justify-center">
-                <div class="mr-6">
-                    <a href="http://positiveblockchain.local" class="text-lg font-semibold text-gray-100 no-underline">
-                        <img class="inline-block" width="50" src="{{asset('pb-sdg-logo.png')}}" alt="Positive Blockchain SDG Logo"> Impact Dashboard
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+   @include('template.navbar-main')
     <div class="min-h-screen flex items-center justify-center">
         <div class="flex flex-col justify-around h-full">
             <div id="app">

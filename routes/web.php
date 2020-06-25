@@ -13,8 +13,11 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('web.welcome');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/projects-active', 'ProjectsActiveWebController')->name('web.projects.active');
 

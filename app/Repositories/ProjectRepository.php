@@ -43,7 +43,7 @@ class ProjectRepository {
      */
     public function getWpListingMostActiveProjects(int $limit): Collection
     {
-        return Post::mostactive($limit)->get();
+        return Post::mostActive($limit)->get();
     }
 
     /**
