@@ -6,7 +6,7 @@
                 v-on:click.prevent="filterSdg(sdg)">
                 filter
             </button>
-            <img class="sdg-goal-icon-image" :src="sdg.goal_icon_path" v-bind:alt="sdg.goal_name + 'icon'"
+            <img class="sdg-goal-icon-image cursor-pointer" :src="sdg.goal_icon_path" v-bind:alt="sdg.goal_name + 'icon'"
                  v-on:click.prevent="showModal(sdg)"/>
         </div>
     </div>

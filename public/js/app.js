@@ -61387,7 +61387,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("img", {
-              staticClass: "sdg-goal-icon-image",
+              staticClass: "sdg-goal-icon-image cursor-pointer",
               attrs: { src: sdg.goal_icon_path, alt: sdg.goal_name + "icon" },
               on: {
                 click: function($event) {
