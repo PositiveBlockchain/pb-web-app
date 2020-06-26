@@ -25,6 +25,7 @@ class ProjectsIndexApiController extends Controller {
 
         return response()->json([
             'status' => 'ok',
+            'count' => $posts->count(),
             'code' => Response::HTTP_OK,
             'data' => $projectRepo->filterMetaFieldsWith(MetaFields::LP_OPTIONS_FIELD, $posts),
             'links' => ['self' => route('api.projects.index')],

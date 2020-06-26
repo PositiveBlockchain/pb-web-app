@@ -30,7 +30,7 @@
     import Spinner from "../helpers/Spinner";
 
     export default {
-        name: "ProjectsListComponent",
+        name: "ProjectsActiveListComponent",
         components: {Spinner},
         data() {
             return {
@@ -49,7 +49,6 @@
             getAbstract(content) {
                 if (_.includes(content, '<')) {
                     const htmlContent = content;
-                    console.log(content);
                     const wrapper = document.createElement("div");
                     wrapper.innerHTML = htmlContent;
                     let text = wrapper.textContent || wrapper.innerText || "";

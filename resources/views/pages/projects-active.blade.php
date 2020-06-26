@@ -15,7 +15,7 @@
             </div>
 
             <div class="w-full p-6">
-                <projects-list></projects-list>
+                <projects-active-list></projects-active-list>
             </div>
         </div>
     </div>

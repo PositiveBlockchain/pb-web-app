@@ -16,6 +16,8 @@
                 </div>
                 <div class="w-full p-6">
                     <sdg-list></sdg-list>
+                    <div class="separator m-10"></div>
+                    <projects-all-list></projects-all-list>
                 </div>
             </div>
         </div>
