@@ -31,4 +31,10 @@ Route::prefix('v1')->group(function () {
     Route::get('reports/project-ages', 'ReportsProjectAgesApiController')->name('api.reports.projects_by_ages');
     Route::get('reports/project-stages', 'ReportsProjectsByStageApiController')->name('api.reports.projects_by_stages');
     Route::get('reports/project-organization-types', 'ReportsProjectOrganizationTypesApiController')->name('api.reports.projects_by_organization_type');
+
+    Route::apiResource('sdgs', 'SdgGoalsApiController')->only([
+        'index', 'show',
+    ]);
 });
+
+
