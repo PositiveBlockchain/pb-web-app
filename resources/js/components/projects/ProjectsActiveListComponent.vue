@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="loaded" class="project-list grid grid-cols-3 gap-4">
+        <div v-if="loaded" class="project-list grid grid-cols-4 gap-4">
             <div v-for="project in projects" class="project-list-item max-w-sm rounded overflow-hidden relative shadow-lg">
                 <div class="px-6 py-4 mb-24">
                     <div class="font-bold text-xl mb-2 mt-2 short-description">{{project.title}}</div>

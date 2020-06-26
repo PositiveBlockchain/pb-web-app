@@ -61144,7 +61144,7 @@ var render = function() {
     _vm.loaded
       ? _c(
           "div",
-          { staticClass: "project-list grid grid-cols-3 gap-4" },
+          { staticClass: "project-list grid grid-cols-4 gap-4" },
           _vm._l(_vm.projects, function(project) {
             return _c(
               "div",
