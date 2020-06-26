@@ -12,7 +12,8 @@
                     </div>
                 @endif
                 <div class="font-semibold text-gray-700 py-3 px-6 mb-0 text-center">
-                    Sustainable Development Goals
+                    <h1 class="text-2xl font-bold mb-5">Sustainable Development Goals</h1>
+                    <p>The mapping of the SDG goals with the projects is still in development mode.</p>
                 </div>
                 <div class="w-full p-6">
                     <sdg-list></sdg-list>
