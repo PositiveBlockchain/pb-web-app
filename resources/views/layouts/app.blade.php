@@ -16,10 +16,12 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none">
-    <div id="app">
-        @include('template.navbar-main')
+<div id="app" class="">
+    @include('template.navbar-main')
 
-        @yield('content')
-    </div>
+    @yield('content')
+    <card-modal :showing="false">
+    </card-modal>
+</div>
 </body>
 </html>

@@ -19,5 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/projects-active', 'ProjectsActiveWebController')->name('web.projects.active');
+Route::view('/projects-active', 'pages.projects-active')->name('web.projects.active');
+Route::view('/sdgs', 'pages.sdgs')->name('web.sdgs');
 
