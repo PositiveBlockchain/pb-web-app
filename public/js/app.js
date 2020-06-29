@@ -3388,7 +3388,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.loaded = false;
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.get('api/v1/project-locations?limit=500');
+                return axios.get('api/v1/project-locations');
 
               case 4:
                 response = _context.sent;

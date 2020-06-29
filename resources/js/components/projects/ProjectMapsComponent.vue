@@ -79,7 +79,7 @@
             getProjectLocations: async function () {
                 this.loaded = false;
                 try {
-                    const response = await axios.get('api/v1/project-locations?limit=500');
+                    const response = await axios.get('api/v1/project-locations');
                     this.projects = response.data.data;
                     this.loaded = true;
                 } catch (e) {
