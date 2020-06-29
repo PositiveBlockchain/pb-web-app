@@ -23,5 +23,6 @@
     <card-modal :showing="false">
     </card-modal>
 </div>
+@include('template.footer')
 </body>
 </html>
