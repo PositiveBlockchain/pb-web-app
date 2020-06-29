@@ -3327,6 +3327,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -20045,7 +20050,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#map[data-v-dd7f7632] {\n    height: 25vh;\n    min-height: 600px;\n}\n.map-project-logo[data-v-dd7f7632] {\n    width: 100px;\n}\n", ""]);
+exports.push([module.i, "\n#map[data-v-dd7f7632] {\n    height: 25vh;\n    min-height: 600px;\n}\n.map-project-logo[data-v-dd7f7632] {\n    width: 50px;\n}\n", ""]);
 
 // exports
 
@@ -75548,19 +75553,30 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("l-popup", [
-                      _c("h2", { staticClass: "font-bold" }, [
-                        _vm._v(_vm._s(project.title))
-                      ]),
-                      _vm._v(" "),
-                      _c("address", [_vm._v(_vm._s(project.fields.gAddress))]),
-                      _vm._v(" "),
                       _c("img", {
-                        staticClass: "map-project-logo",
+                        staticClass: "map-project-logo float-left mr-5",
                         attrs: {
                           alt: "Project logo " + project.title,
                           src: project.fields.business_logo
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c("h2", { staticClass: "font-bold" }, [
+                        _vm._v(_vm._s(project.title))
+                      ]),
+                      _vm._v(" "),
+                      _c("address", { staticClass: "mb-4" }, [
+                        _vm._v(_vm._s(project.fields.gAddress))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-green-500 hover:text-green-800",
+                          attrs: { href: project.permalink, target: "_blank" }
+                        },
+                        [_vm._v("view")]
+                      )
                     ])
                   ],
                   1

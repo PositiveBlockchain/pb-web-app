@@ -8,11 +8,16 @@
                     icon-url="/storage/icons/marker-icon.png">
                 </l-icon>
                 <l-popup>
-                    <h2 class="font-bold">{{project.title}}</h2>
-                    <address>{{project.fields.gAddress}}</address>
                     <img v-bind:alt="'Project logo ' + project.title"
                          :src="project.fields.business_logo"
-                         class="map-project-logo"/>
+                         class="map-project-logo float-left mr-5"/>
+
+                    <h2 class="font-bold">{{project.title}}</h2>
+                    <address class="mb-4">{{project.fields.gAddress}}</address>
+
+                    <a :href="project.permalink"
+                       class="text-green-500 hover:text-green-800"
+                       target="_blank">view</a>
                 </l-popup>
             </l-marker>
         </l-map>
@@ -92,6 +97,6 @@
     }
 
     .map-project-logo {
-        width: 100px;
+        width: 50px;
     }
 </style>
