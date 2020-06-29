@@ -14,5 +14,6 @@
                 </project-map>
             </div>
         </div>
+        <p class="text-sm mt-2">The map tiles are provided by <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>.</p>
     </div>
 @endsection
