@@ -61,7 +61,14 @@ class MetaFields {
         }
         if ($deserialzedValues instanceof PostMeta || is_array($deserialzedValues))
         {
-            $post->fields = array_merge($deserialzedValues->value, static::removeUnusedFields($post->fields));
+            if (is_array($deserialzedValues->value))
+            {
+                $post->fields = array_merge(static::removeUnusedFields($deserialzedValues->value), static::removeUnusedFields($post->fields));
+            }
+            else
+            {
+                $post->fields = array_merge(static::removeUnusedFields([$deserialzedValues->value]), static::removeUnusedFields($post->fields));
+            }
         }
 
         $post->links = ['self' => route('api.projects.show', $post->ID)];
@@ -76,7 +83,7 @@ class MetaFields {
     static function removeUnusedFields(array $fields)
     {
         return collect($fields)->filter(function ($item, $key) {
-            return !Str::of($key)->endsWith(['_mfilter']);
+            return !Str::of($key)->endsWith(['_mfilter', 'list_price', 'list_price_to', 'Plan_id', 'lp_purchase_days', 'reviews_ids', 'campaign_id', 'changed_planid', 'listing_reported_by', 'listing_reported', 'additional_information']);
         })->toArray();
     }
 

@@ -23,6 +23,7 @@ Route::prefix('v1')->group(function () {
     Route::get('projects', 'ProjectsIndexApiController')->name('api.projects.index');
     Route::get('projects/{id}', 'ProjectsShowApiController')->name('api.projects.show');
     Route::get('projects-active', 'ProjectsActiveApiController')->name('api.projects.active');
+    Route::get('project-locations', 'ProjectsLocationApiController')->name('api.projects.locations');
 
     // Reports routes
     Route::get('reports/project-sub-categories', 'ReportsProjectsBySubCategoryApiController')->name('api.reports.projects_by_sub_categories');

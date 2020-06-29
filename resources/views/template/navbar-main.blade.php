@@ -14,6 +14,8 @@
                    href="{{route('web.sdgs')}}" title="Sdgs">Sdgs</a>
                 <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{route('web.welcome')}}"
                    title="All Projects">All Projects</a>
+                <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{route('web.map')}}"
+                   title="Display all projects on a map">Map</a>
             </div>
         </div>
     </div>
