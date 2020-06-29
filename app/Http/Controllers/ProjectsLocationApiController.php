@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\MetaFields;
 use App\Repositories\ProjectRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
@@ -14,15 +15,10 @@ class ProjectsLocationApiController extends Controller {
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $projectRepo = new ProjectRepository();
-        $limit = 10; // default limit move to config later
-        if ($request->has('limit'))
-        {
-            $limit = $request->get('limit');
-        }
-        $posts = $projectRepo->getWpListingProjectsWithLimit($limit);
+        $posts = $projectRepo->getWpListingProjects();
         $posts = $projectRepo->filterMetaFieldsWith(MetaFields::LP_OPTIONS_FIELD, $posts)->filter(function ($post) {
             return (
                 Arr::has($post->fields, 'latitude')
