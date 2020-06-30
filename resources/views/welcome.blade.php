@@ -20,18 +20,21 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <!-- Scripts -->
+    <script src="{{ asset('js/manifest.js') }}" defer></script>
+    <script src="{{ asset('js/vendor.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="bg-gray-800 h-screen antialiased leading-none">
 <div class="flex flex-col">
-   @include('template.navbar-main')
+    @include('template.navbar-main')
     <div class="min-h-screen flex items-center justify-center">
         <div class="flex flex-col justify-around h-full">
             <div id="app">
                 <h1 class="text-gray-400 text-center font-light tracking-wider md:text-4xl lg:text-4xl sm:text-4xl mb-6">
-                    Blockchain Social Impact <br> Projects   Dashboard
+                    Blockchain Social Impact <br> Projects Dashboard
                 </h1>
-                <p class="text-center mb-5 text-gray-400"><small>This is a development version. Things might break.</small></p>
+                <p class="text-center mb-5 text-gray-400"><small>This is a development version. Things might
+                        break.</small></p>
                 <App></App>
             </div>
         </div>

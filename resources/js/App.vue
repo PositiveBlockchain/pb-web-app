@@ -35,16 +35,6 @@
             ProjectsCountriesPieChartComponent,
             ProjectsByCategoryPieChartComponent
         },
-        data() {
-            return {}
-        },
-        created() {
-
-        },
-        mounted() {
-
-        },
-        methods: {}
     }
 </script>
 
