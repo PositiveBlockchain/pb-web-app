@@ -1,7 +1,7 @@
 <template>
     <div class="projects-map">
-        <div class="grid grid-cols-3 gap-2">
-            <div class="leaflet-map relative col-span-2" id="map">
+        <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-2">
+            <div class="leaflet-map md:col-span-2" id="map">
                 <l-map ref="projectMap" @ready="assignMapObject">
                     <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                     <l-marker class="min-h-full" v-if="loaded" v-for="(project, index) in projectsFilteredByCategory"
@@ -31,14 +31,14 @@
                 </l-map>
             </div>
 
-            <div class="col-span-1 categories mb-5">
+            <div class="md:col-span-1 sm:col-span-3 categories mb-5">
                 <map-project-category-filter-component :categories="getCategories"
                                                        :selected-categories="selectedCategories">
 
                 </map-project-category-filter-component>
             </div>
-            <div class="col-span-2">
-                <div v-if="loaded" class="grid grid-cols-3 gap-2 mt-5">
+            <div class="md:col-span-2 sm:col-span-3">
+                <div v-if="loaded" class="grid md:grid-cols-3 sm:grid-cols-1 gap-2 mt-5">
                     <div class="max-w-sm rounded overflow-hidden relative shadow-lg">
                         <div class="px-6 py-4 text-center">
                             <h3 class="font-bold mb-3 text-gray-600">Total projects with location data</h3>
@@ -213,7 +213,7 @@
 
 <style scoped>
     #map {
-        height: 25vh;
+        height: 200px;
         min-height: 600px;
     }
 

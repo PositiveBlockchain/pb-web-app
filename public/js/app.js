@@ -20259,7 +20259,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#map[data-v-dd7f7632] {\n    height: 25vh;\n    min-height: 600px;\n}\n.map-project-logo[data-v-dd7f7632] {\n    width: 50px;\n}\n", ""]);
+exports.push([module.i, "\n#map[data-v-dd7f7632] {\n    height: 200px;\n    min-height: 600px;\n}\n.map-project-logo[data-v-dd7f7632] {\n    width: 50px;\n}\n", ""]);
 
 // exports
 
@@ -75807,13 +75807,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "projects-map" }, [
-    _c("div", { staticClass: "grid grid-cols-3 gap-2" }, [
+    _c("div", { staticClass: "grid md:grid-cols-3 sm:grid-cols-1 gap-2" }, [
       _c(
         "div",
-        {
-          staticClass: "leaflet-map relative col-span-2",
-          attrs: { id: "map" }
-        },
+        { staticClass: "leaflet-map md:col-span-2", attrs: { id: "map" } },
         [
           _c(
             "l-map",
@@ -75909,7 +75906,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-span-1 categories mb-5" },
+        { staticClass: "md:col-span-1 sm:col-span-3 categories mb-5" },
         [
           _c("map-project-category-filter-component", {
             attrs: {
@@ -75921,49 +75918,57 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-span-2" }, [
+      _c("div", { staticClass: "md:col-span-2 sm:col-span-3" }, [
         _vm.loaded
-          ? _c("div", { staticClass: "grid grid-cols-3 gap-2 mt-5" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "max-w-sm rounded overflow-hidden relative shadow-lg"
-                },
-                [
-                  _c("div", { staticClass: "px-6 py-4 text-center" }, [
-                    _c("h3", { staticClass: "font-bold mb-3 text-gray-600" }, [
-                      _vm._v("Total projects with location data")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-6xl text-gray-700" }, [
-                      _vm._v(_vm._s(_vm.response.count_with_location))
+          ? _c(
+              "div",
+              { staticClass: "grid md:grid-cols-3 sm:grid-cols-1 gap-2 mt-5" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "max-w-sm rounded overflow-hidden relative shadow-lg"
+                  },
+                  [
+                    _c("div", { staticClass: "px-6 py-4 text-center" }, [
+                      _c(
+                        "h3",
+                        { staticClass: "font-bold mb-3 text-gray-600" },
+                        [_vm._v("Total projects with location data")]
+                      ),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-6xl text-gray-700" }, [
+                        _vm._v(_vm._s(_vm.response.count_with_location))
+                      ])
                     ])
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "max-w-sm rounded overflow-hidden relative shadow-lg"
-                },
-                [
-                  _c("div", { staticClass: "px-6 py-4 text-center" }, [
-                    _c("h3", { staticClass: "font-bold mb-3 text-gray-600" }, [
-                      _vm._v("Total published projects")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-6xl text-gray-700" }, [
-                      _vm._v(_vm._s(_vm.response.count))
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "max-w-sm rounded overflow-hidden relative shadow-lg"
+                  },
+                  [
+                    _c("div", { staticClass: "px-6 py-4 text-center" }, [
+                      _c(
+                        "h3",
+                        { staticClass: "font-bold mb-3 text-gray-600" },
+                        [_vm._v("Total published projects")]
+                      ),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-6xl text-gray-700" }, [
+                        _vm._v(_vm._s(_vm.response.count))
+                      ])
                     ])
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(0)
+              ]
+            )
           : _c(
               "div",
               { staticClass: "flex justify-center" },
