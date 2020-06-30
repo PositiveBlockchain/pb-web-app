@@ -6,7 +6,7 @@
 
         <div class="flex items-center">
 
-            <div class="md:w-full md:mx-auto">
+            <div class="w-full mx-auto md:w-full md:mx-auto">
                 <project-map>
 
                 </project-map>
