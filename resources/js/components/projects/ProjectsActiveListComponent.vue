@@ -56,7 +56,6 @@
 
                 }
                 return _.truncate(content, {length: 150});
-
             },
             showKeyWord(keyword) {
                 return _.trim(keyword).replace("&amp;", "&");

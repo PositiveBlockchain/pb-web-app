@@ -3284,6 +3284,64 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MapProjectCategoryFilterComponent",
+  props: {
+    categories: {
+      type: Array
+    },
+    selectedCategories: {
+      type: Array
+    }
+  },
+  methods: {
+    clearFilter: function clearFilter() {
+      eventHub.$emit('on-click-clear-filter');
+    },
+    selectCategory: function selectCategory(category) {
+      if (this.isSelected(category) === undefined) {
+        eventHub.$emit('on-select-map-add-category', category);
+      } else {
+        eventHub.$emit('on-select-map-remove-category', category);
+      }
+    },
+    isSelected: function isSelected(category) {
+      return this.selectedCategories.find(function (element) {
+        return element.term_id === category.term_id;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectMapsComponent.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/projects/ProjectMapsComponent.vue?vue&type=script&lang=js& ***!
@@ -3297,6 +3355,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _helpers_Spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/Spinner */ "./resources/js/components/helpers/Spinner.vue");
 /* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
+/* harmony import */ var _MapProjectCategoryFilterComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MapProjectCategoryFilterComponent */ "./resources/js/components/projects/MapProjectCategoryFilterComponent.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3332,11 +3391,58 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProjectMapsComponent",
   components: {
+    MapProjectCategoryFilterComponent: _MapProjectCategoryFilterComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
     Spinner: _helpers_Spinner__WEBPACK_IMPORTED_MODULE_1__["default"],
     LPopup: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LPopup"],
     LIcon: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LIcon"]
@@ -3346,6 +3452,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loaded: false,
       map: null,
       projects: [],
+      categories: [],
+      selectedCategories: [],
+      response: null,
       tileProvider: {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -3353,19 +3462,117 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   computed: {
+    projectsFilteredByCategory: function projectsFilteredByCategory() {
+      var _this = this;
+
+      if (this.selectedCategories.length > 0) {
+        return _.filter(this.projects, function (element) {
+          return _this.categoriesInProject(element);
+        });
+      } else {
+        return this.projects;
+      }
+    },
     markersLoaded: function markersLoaded() {
       if (this.loaded) {
         return this.projects.length === this.map._layers.length;
+      }
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      if (this.loaded) {
+        _.each(this.projects, function (project) {
+          return _this2.addCategory(project);
+        });
+
+        return this.categories;
       }
     }
   },
   created: function created() {
     this.getProjectLocations();
+    eventHub.$on('on-select-map-add-category', this.addSelectedCategory);
+    eventHub.$on('on-select-map-remove-category', this.removeSelectedCategory);
+    eventHub.$on('on-click-clear-filter', this.clearSelectedCategory);
   },
   mounted: function mounted() {
     this.$nextTick(function () {});
   },
   methods: {
+    clearSelectedCategory: function clearSelectedCategory() {
+      this.selectedCategories = [];
+    },
+    categoriesInProject: function categoriesInProject(project) {
+      if (project.hasOwnProperty('taxonomies')) {
+        return this.selectedCategories.find(function (element) {
+          return element.name === project.main_category;
+        });
+      }
+
+      return false;
+    },
+    addSelectedCategory: function addSelectedCategory(category) {
+      if (this.selectedCategoryExists(category) === undefined) {
+        this.selectedCategories.push(category);
+      }
+    },
+    removeSelectedCategory: function removeSelectedCategory(category) {
+      var index = this.selectedCategories.findIndex(function (element) {
+        return element.term_id === category.term_id;
+      });
+      Vue["delete"](this.selectedCategories, index);
+    },
+    selectedCategoryExists: function selectedCategoryExists(category) {
+      return this.selectedCategories.find(function (element) {
+        return element.term_id === category.term_id;
+      });
+    },
+    addCategory: function addCategory(project) {
+      var category = this.findCategoryNameInTaxonomy(project.main_category, project.taxonomies);
+      var match = this.categories.find(function (element) {
+        return project.main_category === element.name;
+      });
+
+      if (match) {
+        return;
+      } else {
+        this.categories.push(category);
+      }
+    },
+    findCategoryNameInTaxonomy: function findCategoryNameInTaxonomy(category, taxonomies) {
+      if (Array.isArray(taxonomies)) {
+        var match = taxonomies.find(function (element) {
+          return element.term.name === category;
+        });
+
+        if (match.hasOwnProperty('term')) {
+          return match.term;
+        }
+
+        return false;
+      }
+
+      return false;
+    },
+    isEmpty: function isEmpty(string) {
+      return !_.isEmpty(string);
+    },
+    getAbstract: function getAbstract(content) {
+      if (_.includes(content, '<')) {
+        var htmlContent = content;
+        var wrapper = document.createElement("div");
+        wrapper.innerHTML = htmlContent;
+        var text = wrapper.textContent || wrapper.innerText || "";
+        return _.truncate(text, {
+          length: 150
+        });
+      }
+
+      return _.truncate(content, {
+        length: 150
+      });
+    },
     getLatLng: function getLatLng(project) {
       if (project.fields.hasOwnProperty('latitude') && project.fields.hasOwnProperty('longitude')) {
         return [parseFloat(project.fields.latitude), parseFloat(project.fields.longitude)];
@@ -3392,22 +3599,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 response = _context.sent;
+                this.response = response.data;
                 this.projects = response.data.data;
                 this.loaded = true;
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 console.error(_context.t0);
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 10]]);
       }));
 
       function getProjectLocations() {
@@ -75511,6 +75719,71 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=template&id=06782e40&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=template&id=06782e40&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "map-category-filter" } }, [
+    _c(
+      "div",
+      { staticClass: "filter-buttons" },
+      _vm._l(_vm.categories, function(category) {
+        return _c(
+          "button",
+          {
+            staticClass:
+              "p-2 bg-gray-300 text-gray-600 m-1 rounded hover:bg-green-500 hover:text-white",
+            class: { "bg-green-500": _vm.isSelected(category) },
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.selectCategory(category)
+              }
+            }
+          },
+          [_vm._v("\n            " + _vm._s(category.name) + "\n        ")]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", {}, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "p-2 bg-green-500 text-white m-1 rounded hover:bg-green-500 hover:text-white",
+          attrs: { type: "button" },
+          on: {
+            click: function($event) {
+              return _vm.clearFilter()
+            }
+          }
+        },
+        [_vm._v("\n            clear all x\n        ")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectMapsComponent.vue?vue&type=template&id=dd7f7632&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/projects/ProjectMapsComponent.vue?vue&type=template&id=dd7f7632&scoped=true& ***!
@@ -75526,80 +75799,213 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "leaflet-map relative", attrs: { id: "map" } },
-    [
+  return _c("div", { staticClass: "projects-map" }, [
+    _c("div", { staticClass: "grid grid-cols-3 gap-2" }, [
       _c(
-        "l-map",
-        { ref: "projectMap", on: { ready: _vm.assignMapObject } },
+        "div",
+        {
+          staticClass: "leaflet-map relative col-span-2",
+          attrs: { id: "map" }
+        },
         [
-          _c("l-tile-layer", {
-            attrs: { url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" }
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.projects, function(project, index) {
-            return _vm.loaded
-              ? _c(
-                  "l-marker",
-                  {
-                    key: index,
-                    staticClass: "min-h-full",
-                    attrs: { "lat-lng": _vm.getLatLng(project) }
-                  },
-                  [
-                    _c("l-icon", {
-                      attrs: { "icon-url": "/storage/icons/marker-icon.png" }
-                    }),
-                    _vm._v(" "),
-                    _c("l-popup", [
-                      _c("img", {
-                        staticClass: "map-project-logo float-left mr-5",
-                        attrs: {
-                          alt: "Project logo " + project.title,
-                          src: project.fields.business_logo
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("h2", { staticClass: "font-bold" }, [
-                        _vm._v(_vm._s(project.title))
-                      ]),
-                      _vm._v(" "),
-                      _c("address", { staticClass: "mb-4" }, [
-                        _vm._v(_vm._s(project.fields.gAddress))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "text-green-500 hover:text-green-800",
-                          attrs: { href: project.permalink, target: "_blank" }
-                        },
-                        [_vm._v("view")]
-                      )
-                    ])
-                  ],
-                  1
-                )
-              : _vm._e()
-          })
+          _c(
+            "l-map",
+            { ref: "projectMap", on: { ready: _vm.assignMapObject } },
+            [
+              _c("l-tile-layer", {
+                attrs: {
+                  url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                }
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.projectsFilteredByCategory, function(project, index) {
+                return _vm.loaded
+                  ? _c(
+                      "l-marker",
+                      {
+                        key: index,
+                        staticClass: "min-h-full",
+                        attrs: { "lat-lng": _vm.getLatLng(project) }
+                      },
+                      [
+                        _c("l-icon", {
+                          attrs: {
+                            "icon-url": "/storage/icons/marker-icon.png"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("l-popup", [
+                          _c("img", {
+                            staticClass: "map-project-logo float-left mr-5 p-2",
+                            attrs: {
+                              alt: "Project logo " + project.title,
+                              src: project.fields.business_logo
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("h2", { staticClass: "font-bold" }, [
+                            _vm._v(_vm._s(project.title))
+                          ]),
+                          _vm._v(" "),
+                          _c("address", { staticClass: "mb-4" }, [
+                            _vm._v(_vm._s(project.fields.gAddress))
+                          ]),
+                          _vm._v(" "),
+                          _vm.isEmpty(project.fields.short_description)
+                            ? _c("p", { staticClass: "text-gray-700 mt-4" }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(
+                                      _vm.getAbstract(
+                                        project.fields.short_description
+                                      )
+                                    ) +
+                                    "\n                        "
+                                )
+                              ])
+                            : _c(
+                                "p",
+                                { staticClass: "text-gray-700 content mt-4" },
+                                [
+                                  _vm._v(
+                                    "\n                            " +
+                                      _vm._s(_vm.getAbstract(project.content)) +
+                                      "\n                        "
+                                  )
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "text-green-500 hover:text-green-800",
+                              attrs: {
+                                href: project.permalink,
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("learn more")]
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              })
+            ],
+            2
+          )
         ],
-        2
+        1
       ),
       _vm._v(" "),
-      !_vm.markersLoaded
-        ? _c(
-            "div",
-            { staticClass: "flex justify-center absolute inset-x-0 top-0" },
-            [_c("spinner")],
-            1
-          )
-        : _vm._e()
-    ],
-    1
-  )
+      _c(
+        "div",
+        { staticClass: "col-span-1 categories mb-5" },
+        [
+          _c("map-project-category-filter-component", {
+            attrs: {
+              categories: _vm.getCategories,
+              "selected-categories": _vm.selectedCategories
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-span-2" }, [
+        _vm.loaded
+          ? _c("div", { staticClass: "grid grid-cols-3 gap-2 mt-5" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "max-w-sm rounded overflow-hidden relative shadow-lg"
+                },
+                [
+                  _c("div", { staticClass: "px-6 py-4 text-center" }, [
+                    _c("h3", { staticClass: "font-bold mb-3 text-gray-600" }, [
+                      _vm._v("Total projects with location data")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-6xl text-gray-700" }, [
+                      _vm._v(_vm._s(_vm.response.count_with_location))
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "max-w-sm rounded overflow-hidden relative shadow-lg"
+                },
+                [
+                  _c("div", { staticClass: "px-6 py-4 text-center" }, [
+                    _c("h3", { staticClass: "font-bold mb-3 text-gray-600" }, [
+                      _vm._v("Total published projects")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-6xl text-gray-700" }, [
+                      _vm._v(_vm._s(_vm.response.count))
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(0)
+            ])
+          : _c(
+              "div",
+              { staticClass: "flex justify-center" },
+              [_c("spinner")],
+              1
+            )
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "max-w-sm rounded overflow-hidden relative shadow-lg" },
+      [
+        _c("div", { staticClass: "px-6 py-4" }, [
+          _c(
+            "h3",
+            { staticClass: "font-bold mb-3 text-center text-gray-600" },
+            [_vm._v("Get involved!")]
+          ),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-gray-700" }, [
+            _vm._v(
+              "Become a contributor and help to improve the quality of the project\n                            data.\n                            Are you a project owner? Claim your project and keep your project updated. Learn more\n                            about\n                            the\n                            "
+            ),
+            _c(
+              "a",
+              {
+                staticClass: "text-green-500",
+                attrs: {
+                  href: "https://positiveblockchain.io/about/",
+                  target: "_blank",
+                  title: "About us page"
+                }
+              },
+              [_vm._v("PositiveBlockchain Open Source community")]
+            ),
+            _vm._v(".")
+          ])
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -101356,6 +101762,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_template_id_56c2e518_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_template_id_56c2e518_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/projects/MapProjectCategoryFilterComponent.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/projects/MapProjectCategoryFilterComponent.vue ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MapProjectCategoryFilterComponent_vue_vue_type_template_id_06782e40_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MapProjectCategoryFilterComponent.vue?vue&type=template&id=06782e40&scoped=true& */ "./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=template&id=06782e40&scoped=true&");
+/* harmony import */ var _MapProjectCategoryFilterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MapProjectCategoryFilterComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MapProjectCategoryFilterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MapProjectCategoryFilterComponent_vue_vue_type_template_id_06782e40_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MapProjectCategoryFilterComponent_vue_vue_type_template_id_06782e40_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "06782e40",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/projects/MapProjectCategoryFilterComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MapProjectCategoryFilterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MapProjectCategoryFilterComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MapProjectCategoryFilterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=template&id=06782e40&scoped=true&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=template&id=06782e40&scoped=true& ***!
+  \***************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapProjectCategoryFilterComponent_vue_vue_type_template_id_06782e40_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MapProjectCategoryFilterComponent.vue?vue&type=template&id=06782e40&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/MapProjectCategoryFilterComponent.vue?vue&type=template&id=06782e40&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapProjectCategoryFilterComponent_vue_vue_type_template_id_06782e40_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapProjectCategoryFilterComponent_vue_vue_type_template_id_06782e40_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

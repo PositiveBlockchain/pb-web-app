@@ -12,7 +12,7 @@
                 </project-map>
             </div>
         </div>
-        <p class="text-sm mt-2">The map tiles are provided by <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>.
+        <p class="text-sm mt-5">The map tiles are provided by <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>.
             The performance can a bit slow, as the markers take a bit longer to be rendered. In another version markers
             will be clustered.</p>
     </div>
