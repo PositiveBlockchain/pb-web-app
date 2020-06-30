@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Helpers\MetaFields;
 use App\Post;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class ProjectRepository {
 
@@ -15,7 +16,17 @@ class ProjectRepository {
      */
     public function getWpListingProjects(): Collection
     {
-        return Post::type('listing')->published()->get();
+        if (Cache::has('projects'))
+        {
+            $projects = Cache::get('projects');
+        }
+        else
+        {
+            $projects = Post::type('listing')->published()->get();
+            Cache::put('projects', $projects, now()->addMinutes(1));
+        }
+
+        return $projects;
     }
 
     /**
@@ -43,7 +54,17 @@ class ProjectRepository {
      */
     public function getWpListingMostActiveProjects(int $limit): Collection
     {
-        return Post::mostActive($limit)->get();
+        if (Cache::has('projects-most-active'))
+        {
+            $projects = Cache::get('projects-most-active');
+        }
+        else
+        {
+            $projects = Post::mostActive($limit)->get();
+            Cache::put('projects-most-active', $projects, now()->addMinutes(1));
+        }
+
+        return $projects;
     }
 
     /**
