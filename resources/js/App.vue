@@ -1,5 +1,5 @@
 <template>
-    <div id="dashboard">
+    <div id="dashboard" class="container">
         <div class="p-3 shadow-lg bg-white m-1 mb-2">
             <project-categories-pie-charts-component/>
         </div>

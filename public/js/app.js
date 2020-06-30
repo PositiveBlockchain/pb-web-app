@@ -74873,7 +74873,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "dashboard" } }, [
+  return _c("div", { staticClass: "container", attrs: { id: "dashboard" } }, [
     _c(
       "div",
       { staticClass: "p-3 shadow-lg bg-white m-1 mb-2" },
