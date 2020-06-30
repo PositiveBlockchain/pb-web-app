@@ -2,8 +2,8 @@
     <div id="map-category-filter">
         <div class="filter-buttons">
             <button type="button" v-for="category in categories" v-on:click.prevent="selectCategory(category)"
-                    class="p-2 bg-gray-300 text-gray-600 m-1 rounded hover:bg-green-500 hover:text-white"
-                    :class="{ 'bg-green-500': isSelected(category)}">
+                    class="p-2 m-1 rounded hover:bg-green-500 hover:text-white"
+                    :class="[isSelected(category) ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-600', '']">
                 {{category.name}}
             </button>
         </div>

@@ -75742,9 +75742,13 @@ var render = function() {
         return _c(
           "button",
           {
-            staticClass:
-              "p-2 bg-gray-300 text-gray-600 m-1 rounded hover:bg-green-500 hover:text-white",
-            class: { "bg-green-500": _vm.isSelected(category) },
+            staticClass: "p-2 m-1 rounded hover:bg-green-500 hover:text-white",
+            class: [
+              _vm.isSelected(category)
+                ? "bg-green-500 text-white"
+                : "bg-gray-300 text-gray-600",
+              ""
+            ],
             attrs: { type: "button" },
             on: {
               click: function($event) {
