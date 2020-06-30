@@ -8,7 +8,8 @@
             </button>
         </div>
         <div class="">
-            <button type="button" class="p-2 bg-green-500 text-white m-1 rounded hover:bg-green-500 hover:text-white"
+            <button v-if="selectedCategories.length > 0" type="button"
+                    class="p-2 bg-red-500 text-white m-1 rounded hover:bg-green-500 hover:text-white"
                     v-on:click="clearFilter()">
                 clear all x
             </button>

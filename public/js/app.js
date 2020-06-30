@@ -3311,6 +3311,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MapProjectCategoryFilterComponent",
   props: {
@@ -75764,20 +75765,22 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", {}, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "p-2 bg-green-500 text-white m-1 rounded hover:bg-green-500 hover:text-white",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.clearFilter()
-            }
-          }
-        },
-        [_vm._v("\n            clear all x\n        ")]
-      )
+      _vm.selectedCategories.length > 0
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "p-2 bg-red-500 text-white m-1 rounded hover:bg-green-500 hover:text-white",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.clearFilter()
+                }
+              }
+            },
+            [_vm._v("\n            clear all x\n        ")]
+          )
+        : _vm._e()
     ])
   ])
 }
