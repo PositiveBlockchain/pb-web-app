@@ -2,10 +2,10 @@ module.exports = {
     purge: [
         './resources/views/**/*.blade.php',
         './resources/css/**/*.css',
+        './resources/**/*.vue',
     ],
     theme: {
-        extend: {
-        }
+        extend: {}
     },
     variants: {},
     plugins: [

@@ -1,6 +1,9 @@
 const mix = require('laravel-mix');
+const glob = require('glob-all')
+const purgeCss = require('purgecss-webpack-plugin')
 
 require('laravel-mix-tailwind');
+//require('./postCssConfig');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,6 +15,9 @@ require('laravel-mix-tailwind');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix.options({
+    extractVueStyles: '/css/vue.css'
+});
 
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css')

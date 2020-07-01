@@ -12,6 +12,8 @@
     "devDependencies": {
         "@tailwindcss/custom-forms": "^0.2",
         "axios": "^0.19",
+        "browser-sync": "^2.26.7",
+        "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^5.2.1",
         "laravel-mix": "^5.0.1",
         "laravel-mix-tailwind": "^0.1.0",
@@ -20,12 +22,17 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "tailwindcss": "^1.4",
+        "tailwindcss": "^1.4.6",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
         "chart.js": "^2.9.3",
+        "glob-all": "^3.2.1",
         "leaflet": "^1.6.0",
+        "postcss-cssnext": "^3.1.0",
+        "postcss-import": "^12.0.1",
+        "postcss-loader": "^3.0.0",
+        "purgecss-webpack-plugin": "^2.3.0",
         "vue": "^2.6.11",
         "vue-chartjs": "^3.5.0",
         "vue2-leaflet": "^2.5.2"

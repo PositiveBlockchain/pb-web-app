@@ -15,24 +15,14 @@
                 default: 64
             }
         },
-        data() {
-            return {}
-        },
-        methods: {
-            getSize() {
-                const size = 'w-' + this.width + ',' + 'h-' + this.height;
-                console.log(size);
-                return size;
-            }
-        }
     }
 </script>
 
 <style scoped>
     .loader {
         border-top-color: #2bbf89;
-        -webkit-animation: spinner 1.5s linear infinite;
-        animation: spinner 1.5s linear infinite;
+        -webkit-animation: spinner linear 1.5s infinite;
+        animation: spinner linear 1.5s infinite;
     }
 
     @-webkit-keyframes spinner {
