@@ -16,7 +16,7 @@
                     <p>The mapping of the SDG goals with the projects is still in development mode.</p>
                 </div>
                 <div class="w-full p-6">
-                    <sdg-list></sdg-list>
+                    <sdg-goals></sdg-goals>
                     <div class="separator m-10"></div>
                     <projects-all-list></projects-all-list>
                 </div>

@@ -8,7 +8,7 @@ window.Vue = require('vue');
 Vue.component('app', require('./App.vue').default);
 Vue.component('projects-active-list', require('./components/projects/ProjectsActiveListComponent').default);
 Vue.component('projects-all-list', require('./components/projects/ProjectsAllListComponent').default);
-Vue.component('sdg-list', require('./components/sdgs/SdgGoalsListComponent').default);
+Vue.component('sdg-goals', require('./components/sdgs/SdgGoalsComponent').default);
 Vue.component('project-map', require('./components/projects/ProjectMapsComponent').default);
 Vue.component('card-modal', require('./components/helpers/CardModal.vue').default);
 Vue.component('l-map', LMap);

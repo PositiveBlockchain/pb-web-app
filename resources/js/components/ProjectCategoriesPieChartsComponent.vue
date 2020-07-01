@@ -12,13 +12,6 @@
     export default {
         name: "ProjectCategoriesPieChartsComponent",
         components: {ProjectSubCategoriesPieChartComponent, ProjectMainCategoriesPieChartComponent},
-        data() {
-            return {}
-        },
-        computed: {},
-        created() {
-        },
-        methods: {}
     }
 </script>
 

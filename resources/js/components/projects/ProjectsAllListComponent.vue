@@ -46,7 +46,7 @@
             }
         },
         created() {
-            this.getMostActiveProjects();
+            this.getProjects();
             eventHub.$on('pb-sdg-filter', this.filterProjectsBySdg);
         },
         computed: {
@@ -91,13 +91,14 @@
             showKeyWord(keyword) {
                 return _.trim(keyword).replace("&amp;", "&");
             },
-            getMostActiveProjects: async function () {
+            getProjects: async function () {
                 this.loaded = false;
                 try {
-                    const response = await axios.get('/api/v1/projects?limit=500');
+                    const response = await axios.get('/api/v1/projects?limit=1000');
                     if (response.data.status === 'ok') {
                         this.response = response.data;
                         this.projects = response.data.data;
+                        eventHub.$emit('on-all-projects-loaded', this.projects);
                         this.loaded = true;
                     }
 
