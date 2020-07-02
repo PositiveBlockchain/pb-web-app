@@ -75344,7 +75344,10 @@ var render = function() {
     _vm.loaded
       ? _c(
           "div",
-          { staticClass: "project-list grid grid-cols-7 gap-4" },
+          {
+            staticClass:
+              "project-list grid grid-cols-6 lg:grid-cols-7 sm:grid-cols-4 gap-4"
+          },
           _vm._l(_vm.projectsFiltered, function(project) {
             return _c(
               "div",
@@ -75412,25 +75415,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "sdg-goals grid grid-cols-2 gap-4" }, [
-    _c(
-      "div",
-      { staticClass: "col-span-1" },
-      [_c("sdg-goals-list-component")],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-span-1 bg-white shadow p-5" },
-      [
-        _c("h2", { staticClass: "text-center" }),
-        _vm._v(" "),
-        _c("sdg-project-distribution-pie-chart")
-      ],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    {
+      staticClass:
+        "sdg-goals grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4"
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "md:col-span-1" },
+        [_c("sdg-goals-list-component")],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "md:col-span-1 bg-white shadow p-5" },
+        [
+          _c("h2", { staticClass: "text-center" }),
+          _vm._v(" "),
+          _c("sdg-project-distribution-pie-chart")
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -75456,10 +75466,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "sdg-goals-list grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 lg:grid-cols-6 gap-1"
-    },
+    { staticClass: "sdg-goals-list grid grid-cols-4 gap-1" },
     _vm._l(_vm.sdgs, function(sdg) {
       return _vm.loaded
         ? _c("div", { staticClass: "shadow relative sdg-goal-icon" }, [
@@ -75467,7 +75474,7 @@ var render = function() {
               "button",
               {
                 staticClass:
-                  "btn-sdg-filter hidden text-sm bg-green-500 hover:bg-green-500 text-white font-bold py-2 px-3 mb-1 rounded bottom-0 right-0 absolute bg-opacity-50",
+                  "btn-sdg-filter hidden text-sm bg-green-500 hover:bg-green-500 text-white font-bold py-2 px-3 mb-1 mr-1 rounded bottom-0 right-0 absolute bg-opacity-50",
                 on: {
                   click: function($event) {
                     $event.preventDefault()
@@ -75479,7 +75486,8 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("img", {
-              staticClass: "sdg-goal-icon-image cursor-pointer",
+              staticClass:
+                "sdg-goal-icon-image cursor-pointer border hover:border-green-500",
               attrs: { src: sdg.goal_icon_path, alt: sdg.goal_name + "icon" },
               on: {
                 click: function($event) {

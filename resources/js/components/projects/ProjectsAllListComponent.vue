@@ -11,7 +11,7 @@
             </span>
 
         </div>
-        <div v-if="loaded" class="project-list grid grid-cols-7 gap-4">
+        <div v-if="loaded" class="project-list grid grid-cols-6 lg:grid-cols-7 sm:grid-cols-4 gap-4">
             <div v-for="project in projectsFiltered"
                  class="project-list-item max-w-sm rounded bg-white shadow">
                 <div class="px-3 py-2">
