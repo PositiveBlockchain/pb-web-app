@@ -11,17 +11,17 @@
             </span>
 
         </div>
-        <div v-if="loaded" class="project-list grid grid-cols-5 gap-4">
+        <div v-if="loaded" class="project-list grid grid-cols-7 gap-4">
             <div v-for="project in projectsFiltered"
-                 class="project-list-item max-w-sm rounded bg-white overflow-hidden relative shadow-lg">
-                <div class="px-6 py-4 mb-12">
-                    <div class="font-bold text-xl mb-2 mt-2 short-description">{{project.title}}</div>
+                 class="project-list-item max-w-sm rounded bg-white shadow">
+                <div class="px-3 py-2">
+                    <div class="text-sm mb-2 mt-2 short-description">{{project.title}}</div>
                 </div>
-                <div class="px-6 py-4 absolute inset-x-0 bottom-0">
-                    <a :href="project.permalink"
-                       class="float-right text-green-500 border rounded p-2 hover:text-green-800 border-green-500"
-                       target="_blank">View</a>
-                </div>
+                <a :href="project.permalink"
+                   class="hover:border-green-500"
+                   target="_blank"> <img class="object-center w-full h-auto" :src="project.fields.business_logo"
+                                         @error="getDefaultImage($event)"
+                                         :alt="'project logo ' + project.title"/></a>
             </div>
         </div>
         <div v-else class="flex justify-center">
@@ -59,6 +59,9 @@
             },
         },
         methods: {
+            getDefaultImage(event) {
+                event.target.src = '/storage/icons/default-error-logo.png';
+            },
             clear() {
                 this.sdgFilter = null;
             },

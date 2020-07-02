@@ -23,6 +23,10 @@
                 response: null,
                 sdgs: [],
                 options: {
+                    cutoutPercentage: 70,
+                    legend: {
+                      position: 'bottom',
+                    },
                     responsive: true,
                     borderWidth: 0,
                     title: {
