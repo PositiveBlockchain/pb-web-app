@@ -93,7 +93,6 @@
                 for (let i = 1; i < values.length + 1; i++) {
                     let alpha = alphaStep * i;
                     let color = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
-                    console.log(color);
                     colors.push(color);
                 }
                 return colors;

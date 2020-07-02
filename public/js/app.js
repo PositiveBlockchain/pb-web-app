@@ -2212,7 +2212,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       for (var i = 1; i < values.length + 1; i++) {
         var alpha = alphaStep * i;
         var color = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
-        console.log(color);
         colors.push(color);
       }
 
@@ -2668,9 +2667,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       countries: null,
       options: {
         responsive: true,
-        cutoutPercentage: 50,
+        cutoutPercentage: 70,
         borderWidth: 0,
         currentCountFilter: 1,
+        legend: {
+          position: 'left'
+        },
         title: {
           display: true,
           text: ''
@@ -2697,10 +2699,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     filteredTaxonomies: function filteredTaxonomies() {
-      var values = _.map(this.countries, 'count');
+      var filterCountries = _.filter(this.countries, function (element) {
+        return element.count > 2;
+      });
+
+      var values = _.map(filterCountries, 'count');
 
       this.chartdata = {
-        labels: _.map(this.countries, 'name'),
+        labels: _.map(filterCountries, 'name'),
         datasets: [{
           label: 'Project countries',
           data: values,
@@ -2818,8 +2824,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       yearCounts: null,
       chartdata: null,
       options: {
+        cutoutPercentage: 70,
         legend: {
-          display: true
+          display: true,
+          position: 'left'
         },
         title: {
           display: true,
@@ -74135,7 +74143,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
+                  staticClass: "w-full md:w-full px-3 mb-6 md:mb-0",
                   attrs: { id: "filter_category_by_count" }
                 },
                 [

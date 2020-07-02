@@ -24,9 +24,12 @@
                 countries: null,
                 options: {
                     responsive: true,
-                    cutoutPercentage: 50,
+                    cutoutPercentage: 70,
                     borderWidth: 0,
                     currentCountFilter: 1,
+                    legend: {
+                        position: 'left',
+                    },
                     title: {
                         display: true,
                         text: '',
@@ -52,9 +55,10 @@
                 }
             },
             filteredTaxonomies: function () {
-                const values = _.map(this.countries, 'count');
+                const filterCountries = _.filter(this.countries, element => element.count > 2);
+                const values = _.map(filterCountries, 'count');
                 this.chartdata = {
-                    labels: _.map(this.countries, 'name'),
+                    labels: _.map(filterCountries, 'name'),
                     datasets: [{
                         label: 'Project countries',
                         data: values,

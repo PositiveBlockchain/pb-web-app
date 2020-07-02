@@ -25,8 +25,10 @@
                 yearCounts: null,
                 chartdata: null,
                 options: {
+                    cutoutPercentage: 70,
                     legend: {
                         display: true,
+                        position: 'left',
                     },
                     title: {
                         display: true,
