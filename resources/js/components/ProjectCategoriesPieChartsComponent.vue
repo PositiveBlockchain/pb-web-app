@@ -1,5 +1,5 @@
 <template>
-    <div class="grid sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-2">
+    <div class="grid sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-3">
         <project-main-categories-pie-chart-component/>
         <project-sub-categories-pie-chart-component/>
     </div>

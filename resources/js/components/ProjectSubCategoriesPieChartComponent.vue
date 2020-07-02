@@ -1,5 +1,5 @@
 <template>
-    <div id="chart-project-main-categories" class="">
+    <div id="chart-project-sub-categories" class="border-l border-gray-600 px-4">
         <div v-if="mainCategory">
             <div v-if="loaded" class="chart">
                 <pie-chart :chartdata="filterSubCategoriesByParentCategory" :options="getOptions"></pie-chart>
@@ -27,10 +27,14 @@
                 chartdata: null,
                 subCategories: [],
                 mainCategory: null,
+                mainCategoryColor: null,
                 response: null,
                 options: {
                     responsive: true,
                     borderWidth: 0,
+                    legend: {
+                        position: 'right',
+                    },
                     title: {
                         display: true,
                         text: '',
@@ -79,18 +83,24 @@
         },
         methods: {
             generatePieColors(values) {
+                const rgb = this.mainCategoryColor.replace(/[^\d,]/g, '').split(',');
+                const red = rgb[0];
+                const green = rgb[1];
+                const blue = rgb[2];
+                const alphaStep = 1.0 / values.length;
+
                 const colors = [];
-                for (let i = 0; i < values.length; i++) {
-                    let red = Math.floor(Math.random() * 200);
-                    let green = Math.floor(Math.random() * 200);
-                    let blue = Math.floor(Math.random() * 200);
-                    let color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+                for (let i = 1; i < values.length + 1; i++) {
+                    let alpha = alphaStep * i;
+                    let color = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+                    console.log(color);
                     colors.push(color);
                 }
                 return colors;
             },
             displaySubCategories(mainCategory) {
-                this.mainCategory = mainCategory;
+                this.mainCategory = mainCategory.category;
+                this.mainCategoryColor = mainCategory.color;
                 if (this.subCategories.length === 0 && typeof mainCategory === 'object') {
                     this.getProjectSubCategoryReport();
                 }

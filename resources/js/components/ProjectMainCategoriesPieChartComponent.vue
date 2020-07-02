@@ -1,5 +1,5 @@
 <template>
-    <div id="chart-project-main-categories" class="">
+    <div id="chart-project-main-categories" class="px-4">
         <div v-if="loaded" class="chart">
             <div id="filter_category_by_count" class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -45,10 +45,14 @@
                 mainCategories: null,
                 response: null,
                 selectedCategory: 'not_selected',
+                colors: [],
                 options: {
                     responsive: true,
-                    cutoutPercentage: 50,
+                    cutoutPercentage: 70,
                     borderWidth: 0,
+                    legend: {
+                        position: 'left',
+                    },
                     title: {
                         display: true,
                         text: '',
@@ -79,18 +83,20 @@
         },
         methods: {
             onChangeLoadSubCategories() {
-                eventHub.$emit('on-change-main-category', this.selectedCategory);
+                const index = this.mainCategories.findIndex(element => element.term_taxonomy_id === this.selectedCategory.term_taxonomy_id);
+                const categoryColor = this.colors[index];
+                const category = {color: categoryColor, category: this.selectedCategory};
+                eventHub.$emit('on-change-main-category', category);
             },
             generatePieColors(values) {
-                const colors = [];
                 for (let i = 0; i < values.length; i++) {
                     let red = Math.floor(Math.random() * 200);
                     let green = Math.floor(Math.random() * 200);
                     let blue = Math.floor(Math.random() * 200);
                     let color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
-                    colors.push(color);
+                    this.colors.push(color);
                 }
-                return colors;
+                return this.colors;
             },
             getProjectMainCategoryReport: async function () {
                 this.loaded = false;
