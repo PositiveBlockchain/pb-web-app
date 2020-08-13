@@ -3,7 +3,7 @@
         <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-2">
             <div class="leaflet-map md:col-span-2" id="map">
                 <l-map ref="projectMap" @ready="assignMapObject">
-                    <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                    <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png"/>
                     <l-marker class="min-h-full" v-if="loaded" v-for="(project, index) in projectsFilteredByCategory"
                               :lat-lng="getLatLng(project)" :key="index">
                         <l-icon
