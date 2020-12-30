@@ -2,7 +2,7 @@
     <div class="container mx-auto px-6 md:px-0">
         <div class="flex items-center justify-center">
             <div class="mr-6">
-                <a href="http://positiveblockchain.local" class="text-lg font-semibold text-gray-100 no-underline">
+                <a href="{{config('app.url')}}" class="text-lg font-semibold text-gray-100 no-underline">
                     <img class="inline-block" width="50" src="{{asset('pb-sdg-logo.png')}}"
                          alt="Positive Blockchain SDG Logo"> Impact Dashboard
                 </a>
