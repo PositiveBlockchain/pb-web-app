@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 
 import Vue from 'vue';
 import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
+require('./leaflet-providers');
 
 window.Vue = require('vue');
 Vue.component('app', require('./App.vue').default);

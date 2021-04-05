@@ -15,6 +15,16 @@ class MetaFields {
     const LP_OPTIONS_FIELD = 'lp_listingpro_options_fields';
     const CREATION_YEAR_FIELD = 'creation_year';
     const ORGANIZATION_TYPE_FIELD = 'organization_type';
+    const SHORT_DESCRIPTION_FIELD = 'short_description';
+    const TAGLINE_FIELD = 'tagline_text';
+    const WEBSITE_FIELD = 'website';
+    const LONG_DESCRIPTION_FIELD = 'description';
+    const SERVICING_AREA_FIELD = 'servicing_area';
+    const LOGO_FIELD = 'business_logo';
+    const SDG_FIELD = 'sdg';
+    const BLOCKCHAIN_TECH_FIELD = 'blockchain_technology';
+    const CONTENT_FIELD = 'content';
+    const CLAIMED_STATUS_FIELD = 'claimed_section';
     const STAGE_FIELD = 'stage';
     const META_KEY_FIELD = 'meta_key';
     const LP_META_OPTIONS = 'lp_listingpro_options';

@@ -193,8 +193,8 @@
                 }
             },
             assignMapObject() {
-                this.map = this.$refs.projectMap.mapObject
-                this.map.setView([48.864716, 2.349014], 3)
+                this.map = this.$refs.projectMap.mapObject;
+                this.map.setView([48.864716, 2.349014], 3);
             },
             getProjectLocations: async function () {
                 this.loaded = false;

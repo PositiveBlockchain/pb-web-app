@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProjectsExportController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,4 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::view('/projects-active', 'pages.projects-active')->name('web.projects.active');
 Route::view('/sdgs', 'pages.sdgs')->name('web.sdgs');
 Route::view('/map', 'pages.map')->name('web.map');
+
+Route::get('/projects/export', 'ProjectsExportController');
 
